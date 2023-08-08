@@ -1,0 +1,25 @@
+[
+    {
+        "Transaction ID": 2129787410,
+        "Time": "2023-07-11 07:51:50.176469",
+        "Name": "Braeden McKenney",
+        "Phone": "3167550510",
+        "Type": "Contractor",
+        "Company": "Cargill",
+        "Contact": "Jeff M",
+        "Purpose": "Sales Cooler"
+    },
+    {
+        "Transaction ID": 2763321492,
+        "Status": "ACTIVE",
+        "Time In": "2023-07-11 14:20:59.768880",
+        "Name": "Kenny Hughes",
+        "Phone": "4023528765",
+        "Type": "Contractor",
+        "Company": "NIFCO",
+        "Contact": "Braeden McKenney",
+        "Purpose": "Laundry",
+        "Time Out": "",
+        "Total Time": 0
+    }
+]
