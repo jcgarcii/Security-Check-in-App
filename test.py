@@ -1,6 +1,6 @@
 #main.py (OOP style)
 
-import widgets as ctk #custom tk
+#import widgets as ctk #custom tk
 import tkinter as tk
 
 class Main(tk.Tk):

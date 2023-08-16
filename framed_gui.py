@@ -174,7 +174,7 @@ class WelcomeFrame(tk.Frame):
         # Create and place the image
         self.image = tk.PhotoImage(file="icon.png")
         self.image_label = tk.Label(self, image=self.image, bg="#FFFFFF")
-        self.image_label.pack(side=tk.TOP, padx=20, pady=20)
+        self.image_label.pack(side=tk.TOP, padx=0, pady=0)
 
         # Create and place the welcome label
         welcome_lbl = tk.Label(self, text="Welcome!", font=('Helvetica', 36, 'bold'), fg="#333333", bg="#FFFFFF")
