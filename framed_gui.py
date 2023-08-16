@@ -117,7 +117,7 @@ def append_to_json(data, file_path):
 
 """
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    1. Application Frames Classes and Functions 
+    2. Application Frames Classes and Functions 
 
         - 1. SplashFrame() displays a background image while application elements load (one-time thing)
         - 2. WelcomeFrame() prompts visitors to enter their name and the type of visitor they are 
@@ -526,9 +526,12 @@ class EmployeeFrame(tk.Frame):
         self.welcome_frame.pack()
         self.destroy()
 
-
+"""
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    3. Main Classes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+"""
 if __name__ == "__main__":
-        
     root = tk.Tk()
     root.geometry('1920x1080')
     root['background'] = '#FFFFFF'
