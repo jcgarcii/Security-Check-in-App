@@ -60,24 +60,6 @@
        </form>
         </div>
       </div>
-      <script>
-        // Function to show or hide the visit purpose fieldset based on the selected visitor type
-        function toggleVisitPurpose() {
-          const jobSelect = document.getElementById('job');
-          const visitPurposeFieldset = document.getElementById('visit-purpose');
-      
-          if (jobSelect.value === 'default' || jobSelect.value === 'employee_new' || jobSelect.value === 'employee_vvs' || jobSelect.value === 'employee_qsi' || jobSelect.value === 'employee_lost') {
-            visitPurposeFieldset.style.display = 'none';
-          } else {
-            visitPurposeFieldset.style.display = 'block';
-          }
-        }
-      
-        // Add an event listener to the job select element to call the function when the selection changes
-        document.getElementById('job').addEventListener('change', toggleVisitPurpose);
-      
-        // Call the function initially to set the initial state
-        toggleVisitPurpose();
-      </script>      
+      <script src="script.js"></script>   
     </body>
 </html>
