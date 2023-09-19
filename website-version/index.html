@@ -7,12 +7,20 @@
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="styles.css">
     </head>
+    <!-- 
+      This page is meant to allow for users to check-in on a local computer at our facility. 
+      I would like to have a second section that is present or absent based on the type of visitor our user is. 
+    -->
     <body>
       <div class="row">
     <div class="col-md-12">
       <form action="index.html" method="post">
         <h1> Cargill Visitor Sign-In </h1>
-        <fieldset>
+        <!-- 
+          Here is the first section that will prompt a user their name, phone number, and their visitor type. 
+          I would like to take this visitor type selected here and use it to determine which section is displayed next.
+        -->
+        <fieldset id="details">
           <legend><span class="number">1</span> Your Basic Info</legend>
           <label for="name">Name:</label>
           <input type="text" id="name" name="user_name">
@@ -20,6 +28,9 @@
           <input type="tel" id="tel" name="user_tel">
           <label for="job">I am:</label>
           <select id="job" name="user_job">
+            
+            <option value="default">Select One</option>
+            </optgroup>
             <optgroup label="Visitor">
               <option value="visitor_customer">Customer</option>
               <option value="visitor_partner">Cargill Partner Representative</option>
@@ -37,22 +48,36 @@
             </optgroup>
           </select>
         </fieldset>
-        <fieldset>  
+
+        <fieldset id="visit-purpose">  
           <legend><span class="number">2</span> Visit Purpose </legend>
          <label for="bio">Reason for Visit:</label>
           <textarea id="bio" name="user_bio"></textarea>
           <label for="company">Company (if applicable):</label>
           <input type="company" id="company"       name="user_company">
-          <!-- 
-          <label>Interests:</label>
-          <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
-          <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
-          <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
-          --> 
          </fieldset>
         <button type="submit">Submit</button>  
        </form>
         </div>
       </div>
+      <script>
+        // Function to show or hide the visit purpose fieldset based on the selected visitor type
+        function toggleVisitPurpose() {
+          const jobSelect = document.getElementById('job');
+          const visitPurposeFieldset = document.getElementById('visit-purpose');
+      
+          if (jobSelect.value === 'default' || jobSelect.value === 'employee_new' || jobSelect.value === 'employee_vvs' || jobSelect.value === 'employee_qsi' || jobSelect.value === 'employee_lost') {
+            visitPurposeFieldset.style.display = 'none';
+          } else {
+            visitPurposeFieldset.style.display = 'block';
+          }
+        }
+      
+        // Add an event listener to the job select element to call the function when the selection changes
+        document.getElementById('job').addEventListener('change', toggleVisitPurpose);
+      
+        // Call the function initially to set the initial state
+        toggleVisitPurpose();
+      </script>      
     </body>
 </html>
