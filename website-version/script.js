@@ -16,6 +16,26 @@ function formatPhoneNumber() {
   // Add an event listener to the phone input element to call the formatPhoneNumber function
   document.getElementById('tel').addEventListener('input', formatPhoneNumber);
   
+// Function to update and display the current time
+function updateCurrentTime() {
+    const currentTimeElement = document.getElementById('current-time');
+    const now = new Date();
+  
+    // Get hours, minutes, and seconds
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+  
+    // Display the formatted time in the specified element
+    currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+  }
+  
+  // Update the time immediately when the page loads
+  updateCurrentTime();
+  
+  // Update the time every second (1000 milliseconds)
+  setInterval(updateCurrentTime, 1000);
+  
 
 // Function to show or hide the visit purpose fieldset based on the selected visitor type
 function toggleVisitPurpose() {
@@ -28,7 +48,7 @@ function toggleVisitPurpose() {
         visitPurposeFieldset.style.display = 'block';
         }
     }
-        
+
 // Add an event listener to the job select element to call the function when the selection changes
 document.getElementById('job').addEventListener('change', toggleVisitPurpose);
         
