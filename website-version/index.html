@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Check-In Form</title>
+        <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+      <div class="row">
+    <div class="col-md-12">
+      <form action="index.html" method="post">
+        <h1> Cargill Visitor Sign-In </h1>
+        <fieldset>
+          <legend><span class="number">1</span> Your Basic Info</legend>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user_name">
+          <label for="tel">Phone:</label>
+          <input type="tel" id="tel" name="user_tel">
+          <label for="job">I am:</label>
+          <select id="job" name="user_job">
+            <optgroup label="Visitor">
+              <option value="visitor_customer">Customer</option>
+              <option value="visitor_partner">Cargill Partner Representative</option>
+              <option value="visitor_other">Visiting for other reasons..</option>
+            </optgroup>
+            <optgroup label="Employee">
+              <option value="employee_new">New Employee (Orientation) </option>
+              <option value="employee_vvs">VVS Canteen Employee </option>
+              <option value="employee_qsi">QSI Employee </option>
+              <option value="employee_lost">Lost Cargill ID </option>
+            </optgroup>
+            <optgroup label="Contractor">
+              <option value="contractor_performing">Performing Work</option>
+              <option value="contractor_scouting">Scouting Work</option>
+            </optgroup>
+          </select>
+        </fieldset>
+        <fieldset>  
+          <legend><span class="number">2</span> Visit Purpose </legend>
+         <label for="bio">Reason for Visit:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+          <label for="company">Company (if applicable):</label>
+          <input type="company" id="company"       name="user_company">
+          <!-- 
+          <label>Interests:</label>
+          <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
+          <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
+          <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
+          --> 
+         </fieldset>
+        <button type="submit">Submit</button>  
+       </form>
+        </div>
+      </div>
+    </body>
+</html>
