@@ -47,18 +47,34 @@
             <optgroup label="Contractor">
               <option value="contractor_performing">Performing Work</option>
               <option value="contractor_scouting">Scouting Work</option>
+              <option value="contractor_supplier">Cargill Supplier</option>
             </optgroup>
           </select>
         </fieldset>
+        
         <fieldset id="visit-purpose">  
           <legend><span class="number">2</span> Visit Purpose </legend>
          <label for="bio">Reason for Visit:</label>
           <textarea id="bio" name="user_bio"></textarea>
-          <label for="company">Company (if applicable):</label>
+          <label for="company">Company:</label>
           <input type="company" id="company"       name="user_company">
          </fieldset>
-        <button type="submit">Submit</button>  
-       </form>
+
+         <fieldset id="contractor-purpose">  
+          <legend><span class="number">2</span> Visit Purpose </legend>
+         <label for="bio">Reason for Visit:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+          <label for="company">Company:</label>
+          <input type="company" id="company"       name="user_company">
+          <label for="contact">Cargill Contact:</label>
+          <input type="company" id="contact"       name="user_contact">
+          <label for="area">Work Area (if known):</label>
+          <input type="company" id="area"       name="user_area">
+         </fieldset>
+         
+         <button type="submit">Submit</button>  
+       
+      </form>
         </div>
       </div>
       <script src="script.js"></script>   

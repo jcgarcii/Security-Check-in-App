@@ -45,12 +45,21 @@ function updateCurrentTime() {
 function toggleVisitPurpose() {
     const jobSelect = document.getElementById('job');
     const visitPurposeFieldset = document.getElementById('visit-purpose');
+    const contractPurposeFieldset = document.getElementById('contractor-purpose');
         
-    if (jobSelect.value === 'default' || jobSelect.value === 'employee_new' || jobSelect.value === 'employee_vvs' || jobSelect.value === 'employee_qsi' || jobSelect.value === 'employee_lost') {
-        visitPurposeFieldset.style.display = 'none';
-    } else {
+
+     if (jobSelect.value === 'visitor_customer' || jobSelect.value === 'visitor_partner' || jobSelect.value === 'visitor_other'  ){
         visitPurposeFieldset.style.display = 'block';
+        contractPurposeFieldset.style.display = 'none'; 
         }
+      else if(jobSelect.value === 'contractor_performing' || jobSelect.value === 'contractor_scouting' || jobSelect.value === 'contractor_supplier'){ 
+        visitPurposeFieldset.style.display = 'none';
+        contractPurposeFieldset.style.display = 'block';
+      }
+      else{
+        visitPurposeFieldset.style.display = 'none';
+        contractPurposeFieldset.style.display = 'none';
+      }
     }
 
 // Add an event listener to the job select element to call the function when the selection changes
