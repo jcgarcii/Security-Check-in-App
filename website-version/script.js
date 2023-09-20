@@ -71,22 +71,55 @@ document.getElementById('job').addEventListener('change', toggleVisitPurpose);
 // Call the function initially to set the initial state
 toggleVisitPurpose();
 
-// Function to add a new name field
+// Function to add a new name entry with a delete button
 function addName() {
   const namesContainer = document.getElementById('names');
-  const newNameField = document.createElement('div');
-  newNameField.className = 'name';
+  const nameEntries = namesContainer.querySelectorAll('.name-entry');
+  const newNameEntry = document.createElement('div');
+  newNameEntry.className = 'name-entry';
 
-  // Clone the HTML for the name field
-  newNameField.innerHTML = `
-    <input type="name" name="user_name[]">
+  // Clone the HTML for the name field and delete button
+  newNameEntry.innerHTML = `
+    <div class="name-input">
+      <input type="name" name="user_name[]">
+      <button type="button" class="delete-button">
+        <i class="fas fa-trash"></i>Delete
+      </button>
+    </div>
   `;
 
-  // Append the new name field to the container
-  namesContainer.appendChild(newNameField);
+  // Add a click event listener to the delete button
+  const deleteButton = newNameEntry.querySelector('.delete-button');
+  deleteButton.addEventListener('click', () => {
+    namesContainer.removeChild(newNameEntry);
+    updateDeleteButtons();
+  });
+
+  // Append the new name entry to the container
+  namesContainer.appendChild(newNameEntry);
+
+  // Update delete buttons
+  updateDeleteButtons();
+}
+
+// Function to update the visibility of delete buttons
+function updateDeleteButtons() {
+  const nameEntries = document.querySelectorAll('.name-entry');
+
+    // Show delete buttons for all other entries
+  nameEntries.forEach((entry, index) => {
+  if (index !== 0) {
+    entry.querySelector('.delete-button').style.display = 'block';
+  }
+  });
+  
 }
 
 // Add an event listener to the "Add Another Name" button
 document.getElementById('addName').addEventListener('click', addName);
+
+// Call updateDeleteButtons initially to set the initial state
+updateDeleteButtons();
+
 
 

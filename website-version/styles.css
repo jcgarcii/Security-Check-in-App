@@ -69,6 +69,18 @@
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 10px;
   }
+
+  .name-entry {
+    display: flex;
+    align-items: center;
+  }
+  
+  .name-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
   
   input[type="radio"],
   input[type="checkbox"] {
@@ -80,8 +92,6 @@
     height: 32px;
     border-radius: 2px;
   }
-
-  
 
   button {
     padding: 19px 39px 18px 39px;
@@ -145,6 +155,17 @@
   }
 
   
+  /* Style for the trashcan icon button */
+  .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: red;
+    width: 20px; /* Set a fixed width for the button */
+  }
+
+
   .number {
     background-color: #5fcf80;
     color: #fff;

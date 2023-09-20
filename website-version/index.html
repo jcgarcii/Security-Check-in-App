@@ -5,6 +5,7 @@
         <title>Check-In Form</title>
         <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+OG5BkFp7jmDZv3jhBRtxD4kc0r4L/rf6s5wr5D0fCfjftS" crossorigin="anonymous">
         <link rel="stylesheet" href="styles.css">
     </head>
     <!-- 
@@ -24,14 +25,9 @@
         -->
         <fieldset id="details">
           <legend><span class="number">1</span> Your Basic Info</legend>
-          <div id="names">
-            <!-- Initial name field -->
-            <div class="name">
-              <label for="name">Name:</label>
-              <input type="name" name="user_name[]">
-            </div>
-          </div>
-          <button type="button" id="addName" class="addName-button">+ Add Accompanying Person</button>
+
+          <label for="name">Name:</label>
+          <input type="text" name="user_name">
           <label for="tel">Phone:</label>
           <input type="tel" id="tel" name="user_tel">
           <label for="job">I am:</label>
@@ -76,6 +72,17 @@
           <input type="company" id="contact"       name="user_contact">
           <label for="area">Work Area (if known):</label>
           <input type="company" id="area"       name="user_area">
+
+          <div id="names">
+            <!-- Initial name field -->
+            <div class="name">
+              <label for="name">Additional Contractor Employees:</label>
+              <input type="name" name="user_name[]">
+            </div>
+          </div>
+          <button type="button" id="addName" class="addName-button">+ Add Accompanying Person</button>
+
+
          </fieldset>
 
          <button type="submit">Submit</button>  
