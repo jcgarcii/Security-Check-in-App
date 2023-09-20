@@ -1,20 +1,24 @@
 // Function to format the phone number as the user types
 function formatPhoneNumber() {
-    const phoneNumberInput = document.getElementById('tel');
-    let phoneNumber = phoneNumberInput.value.replace(/\D/g, ''); // Remove non-numeric characters
-  
-    if (phoneNumber.length >= 4) {
-      phoneNumber = phoneNumber.replace(/(\d{3})(\d)/, '$1-$2'); // Format as: 123-4...
-    }
-    if (phoneNumber.length >= 7) {
-      phoneNumber = phoneNumber.replace(/(\d{3})-(\d{3})(\d)/, '$1-$2-$3'); // Format as: 123-456-7...
-    }
-  
-    phoneNumberInput.value = phoneNumber; // Update the input field with the formatted phone number
+  const phoneNumberInput = document.getElementById('tel');
+  let phoneNumber = phoneNumberInput.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+  if (phoneNumber.length >= 4) {
+    phoneNumber = phoneNumber.replace(/(\d{3})(\d)/, '$1-$2'); // Format as: 123-4...
   }
-  
-  // Add an event listener to the phone input element to call the formatPhoneNumber function
-  document.getElementById('tel').addEventListener('input', formatPhoneNumber);
+  if (phoneNumber.length >= 7) {
+    phoneNumber = phoneNumber.replace(/(\d{3})-(\d{3})(\d)/, '$1-$2-$3'); // Format as: 123-456-7...
+  }
+
+  // Cap the phone number length at 12 characters (including dashes)
+  phoneNumber = phoneNumber.substring(0, 12);
+
+  phoneNumberInput.value = phoneNumber; // Update the input field with the formatted and capped phone number
+}
+
+// Add an event listener to the phone input element to call the formatPhoneNumber function
+document.getElementById('tel').addEventListener('input', formatPhoneNumber);
+
   
 // Function to update and display the current time
 function updateCurrentTime() {
@@ -27,7 +31,7 @@ function updateCurrentTime() {
     const seconds = now.getSeconds().toString().padStart(2, '0');
   
     // Display the formatted time in the specified element
-    currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    currentTimeElement.textContent = `Time: ${hours}:${minutes}:${seconds}`;
   }
   
   // Update the time immediately when the page loads

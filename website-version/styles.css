@@ -101,6 +101,16 @@
     font-weight: 300;
     display: inline;
   }
+    /* Add styles for the time clock */
+  .time-clock {
+    font-size: 20px; /* Adjust the font size as needed */
+    padding: 10px 20px; /* Adjust the padding as needed */
+    display: block; /* Make it block-level */
+    width: fit-content; /* Adjust width to fit content */
+    margin: 10px auto; /* Center it horizontally */
+    text-align: center; /* Center text horizontally */
+  }
+
   
   .number {
     background-color: #5fcf80;
@@ -122,18 +132,6 @@
       max-width: 480px;
     }
 
-  /* Add styles for the time clock */
-  .time-clock {
-    font-size: 20px; /* Adjust the font size as needed */
-    padding: 10px 20px; /* Adjust the padding as needed */
-    background-color: rgba(0, 0, 0, 0.2); /* Transparent background color */
-    border: 2px solid rgba(0, 0, 0, 0.2); /* Transparent round border */
-    border-radius: 8px; /* Creates a round shape with 8px border radius */
-    display: block; /* Make it block-level */
-    width: fit-content; /* Adjust width to fit content */
-    margin: 10px auto; /* Center it horizontally */
-    text-align: center; /* Center text horizontally */
-  }
 
   
   }
