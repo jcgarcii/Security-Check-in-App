@@ -123,3 +123,40 @@ updateDeleteButtons();
 
 
 
+// Function to handle form submission
+function handleSubmit(event) {
+  event.preventDefault(); // Prevent the form from actually submitting
+
+  // Display the "Thank you" message
+  const thankYouMessage = document.getElementById('thank-you-message');
+  const userDetailsFieldset = document.getElementById('details');
+  const visitPurposeFieldset = document.getElementById('visit-purpose');
+  const visitContractorPurposeFieldset = document.getElementById('contractor-purpose');
+  const submitButton = document.getElementById('submit-button');
+  const cargillBanner = document.getElementById('cargill-banner');
+  const currentTimeElement = document.getElementById('current-time');
+
+  userDetailsFieldset.style.display = 'none';
+  visitPurposeFieldset.style.display = 'none';
+  visitContractorPurposeFieldset.style.display = 'none'; 
+  currentTimeElement.style.display = 'none';
+  submitButton.style.display = 'none';
+  cargillBanner.style.display = 'none';
+
+  thankYouMessage.style.display = 'block';
+
+
+  // Reset the form after a brief delay (e.g., 3 seconds)
+  setTimeout(() => {
+    thankYouMessage.style.display = 'none'; // Hide the message
+    userDetailsFieldset.style.display = 'block';
+    currentTimeElement.style.display = 'block';
+    submitButton.style.display = 'block';
+    cargillBanner.style.display = 'block';
+    document.getElementById('check-in-form').reset(); // Reset the form
+
+  }, 3000); // Adjust the delay (in milliseconds) as needed
+}
+
+// Add an event listener to the form for form submission
+document.getElementById('check-in-form').addEventListener('submit', handleSubmit);

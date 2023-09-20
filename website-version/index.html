@@ -9,16 +9,15 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <!-- 
-      This page is meant to allow for users to check-in on a local computer at our facility. 
+      This page is meant to allow ford users to check-in on a local computer at our facility. 
       I would like to have a second section that is present or absent based on the type of visitor our user is. 
     -->
     <body>
       <div class="row">
-
     <div class="col-md-12">
-      <form action="index.html" method="post">
+      <form action="index.html" method="post" id="check-in-form">
         <span id="current-time" class="time-clock"></span>
-        <h1> Cargill Visitor Sign-In </h1>
+        <h1 id="cargill-banner"> Cargill Schuyler Check-In </h1>
         <!-- 
           Here is the first section that will prompt a user their name, phone number, and their visitor type. 
           I would like to take this visitor type selected here and use it to determine which section is displayed next.
@@ -32,7 +31,6 @@
           <input type="tel" id="tel" name="user_tel">
           <label for="job">I am:</label>
           <select id="job" name="user_job">
-            
             <option value="default">Select One</option>
             </optgroup>
             <optgroup label="Visitor">
@@ -81,12 +79,13 @@
             </div>
           </div>
           <button type="button" id="addName" class="addName-button">+ Add Accompanying Person</button>
-
-
          </fieldset>
+         <button type="submit" id="submit-button">Submit</button>  
 
-         <button type="submit">Submit</button>  
-       
+         <div id="thank-you-message" style="display: none;">
+          Thank you, welcome to Cargill Schuyler, have a nice day!
+        </div>
+        
       </form>
         </div>
       </div>
