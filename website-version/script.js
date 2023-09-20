@@ -1,3 +1,6 @@
+
+let userData = {}; // Empty object to store user data
+
 // Function to format the phone number as the user types
 function formatPhoneNumber() {
   const phoneNumberInput = document.getElementById('tel');
@@ -67,3 +70,23 @@ document.getElementById('job').addEventListener('change', toggleVisitPurpose);
         
 // Call the function initially to set the initial state
 toggleVisitPurpose();
+
+// Function to add a new name field
+function addName() {
+  const namesContainer = document.getElementById('names');
+  const newNameField = document.createElement('div');
+  newNameField.className = 'name';
+
+  // Clone the HTML for the name field
+  newNameField.innerHTML = `
+    <input type="name" name="user_name[]">
+  `;
+
+  // Append the new name field to the container
+  namesContainer.appendChild(newNameField);
+}
+
+// Add an event listener to the "Add Another Name" button
+document.getElementById('addName').addEventListener('click', addName);
+
+

@@ -24,8 +24,14 @@
         -->
         <fieldset id="details">
           <legend><span class="number">1</span> Your Basic Info</legend>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="user_name">
+          <div id="names">
+            <!-- Initial name field -->
+            <div class="name">
+              <label for="name">Name:</label>
+              <input type="name" name="user_name[]">
+            </div>
+          </div>
+          <button type="button" id="addName" class="addName-button">+ Add Accompanying Person</button>
           <label for="tel">Phone:</label>
           <input type="tel" id="tel" name="user_tel">
           <label for="job">I am:</label>
@@ -71,7 +77,7 @@
           <label for="area">Work Area (if known):</label>
           <input type="company" id="area"       name="user_area">
          </fieldset>
-         
+
          <button type="submit">Submit</button>  
        
       </form>
