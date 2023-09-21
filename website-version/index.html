@@ -26,12 +26,12 @@
           <legend><span class="number">1</span> Your Basic Info</legend>
 
           <label for="name">Name:</label>
-          <input type="text" name="user_name">
+          <input type="text" name="user_name" required>
           <label for="tel">Phone:</label>
-          <input type="tel" id="tel" name="user_tel">
+          <input type="tel" id="tel" name="user_tel" required>
           <label for="job">I am:</label>
-          <select id="job" name="user_job">
-            <option value="default">Select One</option>
+          <select id="job" name="user_job" required>
+            <option value="" selected>Select One</option>
             </optgroup>
             <optgroup label="Visitor">
               <option value="visitor_customer">Customer</option>
@@ -55,21 +55,21 @@
         <fieldset id="visit-purpose">  
           <legend><span class="number">2</span> Visit Purpose </legend>
          <label for="bio">Reason for Visit:</label>
-          <textarea id="bio" name="user_bio"></textarea>
+          <textarea id="visit-reason" name="visit_reason"></textarea>
           <label for="company">Company:</label>
-          <input type="company" id="company"       name="user_company">
+          <input type="company" id="visit-company"name="visit_company">
          </fieldset>
 
          <fieldset id="contractor-purpose">  
           <legend><span class="number">2</span> Visit Purpose </legend>
          <label for="bio">Reason for Visit:</label>
-          <textarea id="bio" name="user_bio"></textarea>
+          <textarea id="contractor-reason" name="contractor_reason"></textarea>
           <label for="company">Company:</label>
-          <input type="company" id="company"       name="user_company">
+          <input type="company" id="contractor-company" name="contractor_company">
           <label for="contact">Cargill Contact:</label>
-          <input type="company" id="contact"       name="user_contact">
+          <input type="company" id="contractor-contact" name="contractor_contact">
           <label for="area">Work Area (if known):</label>
-          <input type="company" id="area"       name="user_area">
+          <input type="company" id="contractor-area" name="contractor_area">
 
           <div id="names">
             <!-- Initial name field -->

@@ -49,22 +49,45 @@ function toggleVisitPurpose() {
     const jobSelect = document.getElementById('job');
     const visitPurposeFieldset = document.getElementById('visit-purpose');
     const contractPurposeFieldset = document.getElementById('contractor-purpose');
-        
 
+    //FieldSet Attributes to be set as required or not required in the Visitor FieldSet
+    const visitor_purpose = document.getElementById('visit-purpose');
+        
      if (jobSelect.value === 'visitor_customer' || jobSelect.value === 'visitor_partner' || jobSelect.value === 'visitor_other'  ){
+        setContractorFields(false);
+        setVisitorFields(true)
         visitPurposeFieldset.style.display = 'block';
         contractPurposeFieldset.style.display = 'none'; 
         }
       else if(jobSelect.value === 'contractor_performing' || jobSelect.value === 'contractor_scouting' || jobSelect.value === 'contractor_supplier'){ 
+        setContractorFields(true);
+        setVisitorFields(false);
         visitPurposeFieldset.style.display = 'none';
         contractPurposeFieldset.style.display = 'block';
       }
       else{
+        setContractorFields(false);
+        setVisitorFields(false);
         visitPurposeFieldset.style.display = 'none';
         contractPurposeFieldset.style.display = 'none';
       }
     }
 
+    function setContractorFields(viewOption) {
+      const contractor_purpose = document.getElementById('contractor-reason');
+      const contractor_company = document.getElementById('contractor-company');
+      const contractor_contact = document.getElementById('contractor-contact');
+    
+      contractor_purpose.required = viewOption;
+      contractor_company.required = viewOption;
+      contractor_contact.required = viewOption;
+    }
+    
+    // Function to show or hide the visitor purpose fieldset based on the selected visitor type
+    function setVisitorFields(viewOption) {
+      const visitor_purpose = document.getElementById('visit-reason');
+      visitor_purpose.required = viewOption;
+    }
 // Add an event listener to the job select element to call the function when the selection changes
 document.getElementById('job').addEventListener('change', toggleVisitPurpose);
         
