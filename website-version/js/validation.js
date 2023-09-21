@@ -183,7 +183,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
-  toCSV(); 
+  //toCSV(); 
   thankYouMessage.style.display = 'block';
 
   // Reset the form after a brief delay (e.g., 3 seconds)
