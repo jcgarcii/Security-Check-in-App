@@ -97,7 +97,7 @@ function objectifyForm() {
   console.log(jsonUserData); // Print JSON string to console
 }
 
-
+/*
 // Function to write JSON data to a CSV file for local testing
 function toCSV() {
 
@@ -153,6 +153,7 @@ function toCSV() {
   link.click();
   document.body.removeChild(link);
 }
+*/
 
 // Function to handle form submission
 function handleSubmit(event) {
