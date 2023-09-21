@@ -22,7 +22,49 @@ function validatePhoneNumber() {
 
   return true; // Phone number is valid
 }
-  
+
+// Function to place user input into the userData object
+function objectifyForm() {
+  const nameInput = document.getElementById('user_name').value;
+  const phoneNumberInput = document.getElementById('tel').value;
+  const jobSelect = document.getElementById('job').value;
+
+  if(jobSelect === 'visitor_customer' || jobSelect === 'visitor_partner' || jobSelect === 'visitor_other'){
+    const visitReasonInput = document.getElementById('visit-reason').value;
+    const visitCompanyInput = document.getElementById('visit-company').value;
+    userData = {
+      name: nameInput,
+      phoneNumber: phoneNumberInput,
+      job: jobSelect,
+      visitReason: visitReasonInput,
+      visitCompany: visitCompanyInput
+    };
+  }else if(jobSelect === 'contractor_performing' || jobSelect === 'contractor_scouting' || jobSelect === 'contractor_supplier'){
+    const contractorReasonInput = document.getElementById('contractor-reason').value;
+    const contractorCompanyInput = document.getElementById('contractor-company').value;
+    const contractorContactInput = document.getElementById('contractor-contact').value;
+    const contractorAreaInput = document.getElementById('contractor-area').value;
+    userData = {
+      name: nameInput,
+      phoneNumber: phoneNumberInput,
+      job: jobSelect,
+      contractorReason: contractorReasonInput,
+      contractorCompany: contractorCompanyInput,
+      contractorContact: contractorContactInput,
+      contractorArea: contractorAreaInput
+    };
+  }else{
+    userData = {
+      name: nameInput,
+      phoneNumber: phoneNumberInput,
+      job: jobSelect
+    };
+  }
+
+  const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
+  console.log(jsonUserData); // Print JSON string to console
+}
+
 // Function to handle form submission
 function handleSubmit(event) {
   event.preventDefault(); // Prevent the form from actually submitting
@@ -50,6 +92,7 @@ function handleSubmit(event) {
   submitButton.style.display = 'none';
   cargillBanner.style.display = 'none';
 
+  objectifyForm(); // Call the function to place user input into the userData object
   thankYouMessage.style.display = 'block';
 
   // Reset the form after a brief delay (e.g., 3 seconds)
