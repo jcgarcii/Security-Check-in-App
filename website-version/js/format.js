@@ -71,4 +71,9 @@
     contractorAreaInput.value = contractorArea; // Update the input field with the formatted name
   }document.getElementById('contractor-area').addEventListener('input', formatContractorArea);
 
-  
+  // Function to format the original contractor names input
+  function formatAdditionalContractorNames(){
+    const contractorNamesInput = document.getElementById('additional-contractor-names');
+    let contractorNames = contractorNamesInput.value.replace(/[^a-zA-Z ]/g, ""); // Remove non-alphabetic characters
+    contractorNamesInput.value = contractorNames; // Update the input field with the formatted name
+  }document.getElementById('additional-contractor-names').addEventListener('input', formatAdditionalContractorNames);

@@ -80,50 +80,56 @@ toggleVisitPurpose();
 
 // Function to add a new name entry with a delete button
 function addName() {
-    const namesContainer = document.getElementById('names');
-    const nameEntries = namesContainer.querySelectorAll('.name-entry');
-    const newNameEntry = document.createElement('div');
-    newNameEntry.className = 'name-entry';
-  
-    // Clone the HTML for the name field and delete button
-    newNameEntry.innerHTML = `
-      <div class="name-input">
-        <input type="name" name="user-name[]">
-        <button type="button" class="delete-button">
-          <i class="fas fa-trash"></i>Delete
-        </button>
-      </div>
-    `;
-  
-    // Add a click event listener to the delete button
-    const deleteButton = newNameEntry.querySelector('.delete-button');
-    deleteButton.addEventListener('click', () => {
-      namesContainer.removeChild(newNameEntry);
-      updateDeleteButtons();
-    });
-  
-    // Append the new name entry to the container
-    namesContainer.appendChild(newNameEntry);
-  
-    // Update delete buttons
+  const namesContainer = document.getElementById('names');
+  const nameEntries = namesContainer.querySelectorAll('.name-entry');
+  const newNameEntry = document.createElement('div');
+  newNameEntry.className = 'name-entry';
+
+  // Clone the HTML for the name field and delete button
+  newNameEntry.innerHTML = `
+    <div class="name-input">
+      <input type="name" name="user-name[]">
+      <button type="button" class="delete-button">
+        <i class="fas fa-trash"></i>Delete
+      </button>
+    </div>
+  `;
+
+  // Add a click event listener to the delete button
+  const deleteButton = newNameEntry.querySelector('.delete-button');
+  deleteButton.addEventListener('click', () => {
+    namesContainer.removeChild(newNameEntry);
     updateDeleteButtons();
-  }
-  
-  // Function to update the visibility of delete buttons
-  function updateDeleteButtons() {
-    const nameEntries = document.querySelectorAll('.name-entry');
-  
-      // Show delete buttons for all other entries
-    nameEntries.forEach((entry, index) => {
+  });
+
+  // Add an event listener for input validation
+  const nameInput = newNameEntry.querySelector('input');
+  nameInput.addEventListener('input', () => {
+    // Remove non-alphabetic characters from the input
+    nameInput.value = nameInput.value.replace(/[^a-zA-Z ]/g, '');
+  });
+
+  // Append the new name entry to the container
+  namesContainer.appendChild(newNameEntry);
+
+  // Update delete buttons
+  updateDeleteButtons();
+}
+
+// Function to update the visibility of delete buttons
+function updateDeleteButtons() {
+  const nameEntries = document.querySelectorAll('.name-entry');
+
+  // Show delete buttons for all other entries
+  nameEntries.forEach((entry, index) => {
     if (index !== 0) {
       entry.querySelector('.delete-button').style.display = 'block';
     }
-    });
-    
-  }
-  
-  // Add an event listener to the "Add Another Name" button
-  document.getElementById('addName').addEventListener('click', addName);
-  
-  // Call updateDeleteButtons initially to set the initial state
-  updateDeleteButtons();
+  });
+}
+
+// Add an event listener to the "Add Another Name" button
+document.getElementById('addName').addEventListener('click', addName);
+
+// Call updateDeleteButtons initially to set the initial state
+updateDeleteButtons();
