@@ -97,6 +97,63 @@ function objectifyForm() {
   console.log(jsonUserData); // Print JSON string to console
 }
 
+
+// Function to write JSON data to a CSV file for local testing
+function toCSV() {
+
+  // Convert userData to an array of objects
+  const data = [
+    {
+      o_time_in: userData.time_in,
+      o_name: userData.name,
+      o_phone: userData.phoneNumber,
+      o_job: userData.job,
+      o_reason: userData.reason,
+      o_company: userData.company,
+      o_contact: userData.contact,
+      o_area: userData.area,
+      o_time_out: userData.time_out,
+      o_time: userData.time,
+    },
+  ];
+
+  const header = [
+    { id: 'o_time_in', title: 'Time In' },
+    { id: 'o_name', title: 'Name' },
+    { id: 'o_phone', title: 'Phone' },
+    { id: 'o_job', title: 'Type' },
+    { id: 'o_reason', title: 'Reason' },
+    { id: 'o_company', title: 'Company' },
+    { id: 'o_contact', title: 'Contact' },
+    { id: 'o_area', title: 'Work Area' },
+    { id: 'o_time_out', title: 'Time Out' },
+    { id: 'o_time', title: 'Total Time' },
+  ];
+
+  // Create a CSV data array
+  const csvData = [header.map((column) => column.title)];
+
+  data.forEach((user) => {
+    const row = header.map((column) => user[column.id]);
+    csvData.push(row);
+  });
+
+  // Convert the CSV data to a CSV string
+  const csvString = csvData.map((row) => row.join(',')).join('\n');
+
+  // Create a Blob with the CSV string
+  const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+
+  // Create a download link and trigger the download
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'output.csv';
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 // Function to handle form submission
 function handleSubmit(event) {
   event.preventDefault(); // Prevent the form from actually submitting
@@ -125,6 +182,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
+  toCSV(); 
   thankYouMessage.style.display = 'block';
 
   // Reset the form after a brief delay (e.g., 3 seconds)
