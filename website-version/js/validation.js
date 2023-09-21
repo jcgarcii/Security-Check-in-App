@@ -40,7 +40,9 @@ function objectifyForm() {
       reason: visitReasonInput,
       company: visitCompanyInput,
       contact: '',
-      area: ''
+      area: '',
+      time_out: '',
+      time: ''
     };
   }else if(jobSelect === 'contractor_performing' || jobSelect === 'contractor_scouting' || jobSelect === 'contractor_supplier'){
     const contractorReasonInput = document.getElementById('contractor-reason').value;
@@ -55,7 +57,9 @@ function objectifyForm() {
       reason: contractorReasonInput,
       copmany: contractorCompanyInput,
       contact: contractorContactInput,
-      area: contractorAreaInput
+      area: contractorAreaInput,
+      time_out: '',
+      time: ''
     };
   }else{
     userData = {
@@ -66,7 +70,9 @@ function objectifyForm() {
       reason:jobSelect,
       company:'Cargill', 
       contact:'', 
-      area:''
+      area:'',
+      time_out: '',
+      time: ''
     };
   }
 
