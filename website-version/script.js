@@ -1,6 +1,12 @@
 
 let userData = {}; // Empty object to store user data
 
+/**
+ * The following functions are meant to be used as handlers for the inputs in the form.
+ * 
+ * They handle formatting the data and sanitizing the inptus to prevent XSS attacks.
+ */
+
 // Function to format the phone number as the user types
 function formatPhoneNumber() {
   const phoneNumberInput = document.getElementById('tel');
@@ -22,7 +28,32 @@ function formatPhoneNumber() {
 // Add an event listener to the phone input element to call the formatPhoneNumber function
 document.getElementById('tel').addEventListener('input', formatPhoneNumber);
 
-  
+// Function to sanitize the name input
+function formatName(){
+  const nameInput = document.getElementById('user_name');
+  let name = nameInput.value.replace(/[^a-zA-Z ]/g, ""); // Remove non-alphabetic characters
+
+  nameInput.value = name; // Update the input field with the formatted name
+}
+
+document.getElementById('user_name').addEventListener('input', formatName);
+
+
+// Function to validate the phone number length
+function validatePhoneNumber() {
+  const phoneNumberInput = document.getElementById('tel');
+  const phoneNumber = phoneNumberInput.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+  if (phoneNumber.length !== 10) {
+    // Display an error message or take appropriate action
+    alert('Please enter a valid 10-digit phone number (e.g., 888-888-8888).');
+    phoneNumberInput.focus(); // Focus back on the input field
+    return false; // Prevent form submission
+  }
+
+  return true; // Phone number is valid
+}
+
 // Function to update and display the current time
 function updateCurrentTime() {
     const currentTimeElement = document.getElementById('current-time');
@@ -104,7 +135,7 @@ function addName() {
   // Clone the HTML for the name field and delete button
   newNameEntry.innerHTML = `
     <div class="name-input">
-      <input type="name" name="user_name[]">
+      <input type="name" name="user-name[]">
       <button type="button" class="delete-button">
         <i class="fas fa-trash"></i>Delete
       </button>
@@ -144,11 +175,16 @@ document.getElementById('addName').addEventListener('click', addName);
 // Call updateDeleteButtons initially to set the initial state
 updateDeleteButtons();
 
-
-
 // Function to handle form submission
 function handleSubmit(event) {
   event.preventDefault(); // Prevent the form from actually submitting
+
+  // Call the phone validation function
+  if (!validatePhoneNumber()) {
+    // If the phone number is invalid, display an error message
+    alert('Please enter a valid 10-digit phone number (e.g., 888-888-8888).');
+    return; // Exit the function without proceeding further
+  }
 
   // Display the "Thank you" message
   const thankYouMessage = document.getElementById('thank-you-message');
@@ -168,7 +204,6 @@ function handleSubmit(event) {
 
   thankYouMessage.style.display = 'block';
 
-
   // Reset the form after a brief delay (e.g., 3 seconds)
   setTimeout(() => {
     thankYouMessage.style.display = 'none'; // Hide the message
@@ -177,9 +212,9 @@ function handleSubmit(event) {
     submitButton.style.display = 'block';
     cargillBanner.style.display = 'block';
     document.getElementById('check-in-form').reset(); // Reset the form
-
   }, 3000); // Adjust the delay (in milliseconds) as needed
 }
+
 
 // Add an event listener to the form for form submission
 document.getElementById('check-in-form').addEventListener('submit', handleSubmit);
