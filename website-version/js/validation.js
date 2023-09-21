@@ -33,6 +33,7 @@ function objectifyForm() {
     const visitReasonInput = document.getElementById('visit-reason').value;
     const visitCompanyInput = document.getElementById('visit-company').value;
     userData = {
+      time_in: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: jobSelect,
@@ -45,6 +46,7 @@ function objectifyForm() {
     const contractorContactInput = document.getElementById('contractor-contact').value;
     const contractorAreaInput = document.getElementById('contractor-area').value;
     userData = {
+      time_in: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: jobSelect,
@@ -55,11 +57,29 @@ function objectifyForm() {
     };
   }else{
     userData = {
+      time_in: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: jobSelect
     };
   }
+
+    // Function to update and display the current time
+  function updateCurrentTime() {
+    const now = new Date();
+
+    // Get hours, minutes, and seconds
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+
+    // Display the formatted time in the specified element
+    let time_in = `${hours}:${minutes}:${seconds}`;
+    userData.time_in = time_in;
+  }
+
+  // Update the time immediately when the page loads
+  updateCurrentTime();
 
   const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
   console.log(jsonUserData); // Print JSON string to console
