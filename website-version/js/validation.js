@@ -83,9 +83,14 @@ function objectifyForm() {
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
+  
+    //Date(s)
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = now.getMonth().toString().padStart(2, '0');
+    const year = now.getFullYear().toString().padStart(2, '0');
 
     // Display the formatted time in the specified element
-    let time_in = `${hours}:${minutes}:${seconds}`;
+    let time_in = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
     userData.time_in = time_in;
   }
 
