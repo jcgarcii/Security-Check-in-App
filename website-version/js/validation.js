@@ -33,15 +33,15 @@ function objectifyForm() {
     const visitCompanyInput = document.getElementById('visit-company').value;
     userData = {
       time_in: '',
+      time_out: '',
+      time: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: jobSelect,
       reason: visitReasonInput,
       company: visitCompanyInput,
       contact: '',
-      area: '',
-      time_out: '',
-      time: ''
+      area: ''
     };
   }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
     const contractorReasonInput = document.getElementById('contractor-reason').value;
@@ -50,28 +50,28 @@ function objectifyForm() {
     const contractorAreaInput = document.getElementById('contractor-area').value;
     userData = {
       time_in: '',
+      time_out: '',
+      time: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: jobSelect,
       reason: contractorReasonInput,
       copmany: contractorCompanyInput,
       contact: contractorContactInput,
-      area: contractorAreaInput,
-      time_out: '',
-      time: ''
+      area: contractorAreaInput
     };
   }else{
     userData = {
       time_in: '',
+      time_out: '',
+      time: '',
       name: nameInput,
       phoneNumber: phoneNumberInput,
       job: 'Cargill Employee',
       reason:jobSelect,
       company:'Cargill', 
       contact:'', 
-      area:'',
-      time_out: '',
-      time: ''
+      area:''
     };
   }
 
