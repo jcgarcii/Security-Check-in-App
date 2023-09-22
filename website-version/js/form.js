@@ -36,13 +36,13 @@ function toggleVisitPurpose() {
     //FieldSet Attributes to be set as required or not required in the Visitor FieldSet
     const visitor_purpose = document.getElementById('visit-purpose');
         
-     if (jobSelect.value === 'visitor_customer' || jobSelect.value === 'visitor_partner' || jobSelect.value === 'visitor_other'  ){
+     if (jobSelect.value === 'Visitor: Customer' || jobSelect.value === 'Visitor: Partner' || jobSelect.value === 'Visitor: Other'  ){
         setContractorFields(false);
         setVisitorFields(true)
         visitPurposeFieldset.style.display = 'block';
         contractPurposeFieldset.style.display = 'none'; 
         }
-      else if(jobSelect.value === 'contractor_performing' || jobSelect.value === 'contractor_scouting' || jobSelect.value === 'contractor_supplier'){ 
+      else if(jobSelect.value === 'Contractor: Performing Work' || jobSelect.value === 'Contractor: Scouting Work' || jobSelect.value === 'Contractor: Supplier'){ 
         setContractorFields(true);
         setVisitorFields(false);
         visitPurposeFieldset.style.display = 'none';

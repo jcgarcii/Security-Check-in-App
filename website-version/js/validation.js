@@ -19,7 +19,6 @@ function validatePhoneNumber() {
     phoneNumberInput.focus(); // Focus back on the input field
     return false; // Prevent form submission
   }
-
   return true; // Phone number is valid
 }
 
@@ -29,7 +28,7 @@ function objectifyForm() {
   const phoneNumberInput = document.getElementById('tel').value;
   const jobSelect = document.getElementById('job').value;
 
-  if(jobSelect === 'visitor_customer' || jobSelect === 'visitor_partner' || jobSelect === 'visitor_other'){
+  if(jobSelect === 'Visitor: Customer' || jobSelect === 'Visitor: Partner' || jobSelect === 'Visitor: Other'){
     const visitReasonInput = document.getElementById('visit-reason').value;
     const visitCompanyInput = document.getElementById('visit-company').value;
     userData = {
@@ -44,7 +43,7 @@ function objectifyForm() {
       time_out: '',
       time: ''
     };
-  }else if(jobSelect === 'contractor_performing' || jobSelect === 'contractor_scouting' || jobSelect === 'contractor_supplier'){
+  }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
     const contractorReasonInput = document.getElementById('contractor-reason').value;
     const contractorCompanyInput = document.getElementById('contractor-company').value;
     const contractorContactInput = document.getElementById('contractor-contact').value;
