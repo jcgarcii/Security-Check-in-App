@@ -114,6 +114,23 @@ function objectifyForm() {
   console.log(jsonUserData); // Print JSON string to console
 }
 
+/*
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse the response body as JSON
+  })
+  .then(data => {
+    // Handle the data from the successful response
+    console.log(data);
+  })
+  .catch(error => {
+    // Handle any errors that occurred during the fetch
+    console.error('Fetch error:', error);
+  });
+*/
 
 function getData() {
   const url = apiUrl; // Replace with your API endpoint
