@@ -120,7 +120,8 @@ function getData() {
   fetch(url)
     .then(response => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        // Handle non-OK responses here
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json(); // Parse the response JSON
     })
@@ -129,7 +130,9 @@ function getData() {
       console.log('GET response:', data);
     })
     .catch(error => {
-      console.error('GET error:', error);
+      // Log the specific error details
+      console.error('GET error:', error.message); // Log the error message
+      console.error('GET error response:', error.response); // Log the entire response object
     });
 }
 
