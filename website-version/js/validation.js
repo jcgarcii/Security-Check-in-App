@@ -7,7 +7,8 @@
  */
 
 let userData = {}; // Empty object to store user data
-const apiUrl = 'https://your-api-endpoint.com'; // Define the API URL as a global variable
+const apiUrl = 'https://msschu05mp.pcg.cargill.com/piwebapi/assetdatabases/F1RDZ_V1ACw-sE-EcebTfGIGhQbEk9SdqtBUC2vWiEA02JNQTVNTQ0hVMDVNUFxERVZfU0NIVVlMRVIgQVNTRVQgVFdJTg'; // Define the API URL as a global variable
+
 
 // Function to validate the phone number length
 function validatePhoneNumber() {
