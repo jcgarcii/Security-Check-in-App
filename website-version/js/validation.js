@@ -8,7 +8,7 @@
 
 let userData = {}; // Empty object to store user data
 const apiUrl = 'https://msschu05mp.pcg.cargill.com/piwebapi/assetdatabases/F1RDZ_V1ACw-sE-EcebTfGIGhQbEk9SdqtBUC2vWiEA02JNQTVNTQ0hVMDVNUFxERVZfU0NIVVlMRVIgQVNTRVQgVFdJTg'; // Define the API URL as a global variable
-
+const dummyUrl = 'https://jsonplaceholder.typicode.com/todos/1'; // Define the API URL as a global variable
 
 // Function to validate the phone number length
 function validatePhoneNumber() {
@@ -113,24 +113,6 @@ function objectifyForm() {
   const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
   console.log(jsonUserData); // Print JSON string to console
 }
-
-/*
-fetch('https://jsonplaceholder.typicode.com/posts/1')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json(); // Parse the response body as JSON
-  })
-  .then(data => {
-    // Handle the data from the successful response
-    console.log(data);
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the fetch
-    console.error('Fetch error:', error);
-  });
-*/
 
 function getData() {
   const url = apiUrl; // Replace with your API endpoint
