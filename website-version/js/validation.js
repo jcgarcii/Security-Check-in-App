@@ -2,11 +2,12 @@
  * File: form.js
  * Author: Jose Carlos Garcia
  * Description: Contains functions related to form handling and submission.
- * Version: 1.0
+ * Version: 1.2
  * Last Modified: 9/21/2023
  */
 
 let userData = {}; // Empty object to store user data
+const apiUrl = 'https://your-api-endpoint.com'; // Define the API URL as a global variable
 
 // Function to validate the phone number length
 function validatePhoneNumber() {
@@ -31,49 +32,60 @@ function objectifyForm() {
   if(jobSelect === 'Visitor: Customer' || jobSelect === 'Visitor: Partner' || jobSelect === 'Visitor: Other'){
     const visitReasonInput = document.getElementById('visit-reason').value;
     const visitCompanyInput = document.getElementById('visit-company').value;
-    userData = {
-      time_in: '',
-      time_out: '',
-      time: '',
-      name: nameInput,
-      phoneNumber: phoneNumberInput,
-      job: jobSelect,
-      reason: visitReasonInput,
-      company: visitCompanyInput,
-      contact: '',
-      area: ''
-    };
+    // assign values to be filled into user data object
+    i_time_in = ''
+    i_time_out = ''
+    i_time = ''
+    i_name = nameInput
+    i_phoneNumber = phoneNumberInput
+    i_job = jobSelect
+    i_reason = visitReasonInput
+    i_company = visitCompanyInput
+    i_contact = ''
+    i_area = ''
   }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
     const contractorReasonInput = document.getElementById('contractor-reason').value;
     const contractorCompanyInput = document.getElementById('contractor-company').value;
     const contractorContactInput = document.getElementById('contractor-contact').value;
     const contractorAreaInput = document.getElementById('contractor-area').value;
-    userData = {
-      time_in: '',
-      time_out: '',
-      time: '',
-      name: nameInput,
-      phoneNumber: phoneNumberInput,
-      job: jobSelect,
-      reason: contractorReasonInput,
-      copmany: contractorCompanyInput,
-      contact: contractorContactInput,
-      area: contractorAreaInput
-    };
+    // assign values to be filled into user data object
+    i_time_in = ''
+    i_time_out = ''
+    i_time = ''
+    i_name = nameInput
+    i_phoneNumber = phoneNumberInput
+    i_job = jobSelect
+    i_reason = contractorReasonInput
+    i_company = contractorCompanyInput
+    i_contact = contractorContactInput
+    i_area = contractorAreaInput
   }else{
-    userData = {
-      time_in: '',
-      time_out: '',
-      time: '',
-      name: nameInput,
-      phoneNumber: phoneNumberInput,
-      job: 'Cargill Employee',
-      reason:jobSelect,
-      company:'Cargill', 
-      contact:'', 
-      area:''
-    };
+    // assign values to be filled into user data object
+    i_time_in = ''
+    i_time_out = ''
+    i_time = ''
+    i_name = nameInput
+    i_phoneNumber = phoneNumberInput
+    i_job = 'Cargill Emplooyee'
+    i_reason = jobSelect
+    i_company = 'Cargill'
+    i_contact = ''
+    i_area = ''
   }
+
+  // assign values to userData
+  userDate={
+    "Time In": i_time_in,
+    "Time Out": i_time_out,
+    "Time": i_time,
+    "Name": i_name,
+    "Phone Number": i_phoneNumber,
+    "Job": i_job,
+    "Reason": i_reason,
+    "Company": i_company,
+    "Contact": i_contact,
+    "Area": i_area,
+  }; 
 
     // Function to update and display the current time
   function updateCurrentTime() {
@@ -91,7 +103,7 @@ function objectifyForm() {
 
     // Display the formatted time in the specified element
     let time_in = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-    userData.time_in = time_in;
+    userData["Time In"] = time_in;
   }
 
   // Update the time immediately when the page loads
@@ -101,63 +113,26 @@ function objectifyForm() {
   console.log(jsonUserData); // Print JSON string to console
 }
 
-/*
-// Function to write JSON data to a CSV file for local testing
-function toCSV() {
 
-  // Convert userData to an array of objects
-  const data = [
-    {
-      o_time_in: userData.time_in,
-      o_name: userData.name,
-      o_phone: userData.phoneNumber,
-      o_job: userData.job,
-      o_reason: userData.reason,
-      o_company: userData.company,
-      o_contact: userData.contact,
-      o_area: userData.area,
-      o_time_out: userData.time_out,
-      o_time: userData.time,
-    },
-  ];
+function getData() {
+  const url = apiUrl; // Replace with your API endpoint
 
-  const header = [
-    { id: 'o_time_in', title: 'Time In' },
-    { id: 'o_name', title: 'Name' },
-    { id: 'o_phone', title: 'Phone' },
-    { id: 'o_job', title: 'Type' },
-    { id: 'o_reason', title: 'Reason' },
-    { id: 'o_company', title: 'Company' },
-    { id: 'o_contact', title: 'Contact' },
-    { id: 'o_area', title: 'Work Area' },
-    { id: 'o_time_out', title: 'Time Out' },
-    { id: 'o_time', title: 'Total Time' },
-  ];
-
-  // Create a CSV data array
-  const csvData = [header.map((column) => column.title)];
-
-  data.forEach((user) => {
-    const row = header.map((column) => user[column.id]);
-    csvData.push(row);
-  });
-
-  // Convert the CSV data to a CSV string
-  const csvString = csvData.map((row) => row.join(',')).join('\n');
-
-  // Create a Blob with the CSV string
-  const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-
-  // Create a download link and trigger the download
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'output.csv';
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Parse the response JSON
+    })
+    .then(data => {
+      // Handle the response data here
+      console.log('GET response:', data);
+    })
+    .catch(error => {
+      console.error('GET error:', error);
+    });
 }
-*/
+
 
 // Function to handle form submission
 function handleSubmit(event) {
@@ -187,7 +162,8 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
-  //toCSV(); 
+  getData(); 
+
   thankYouMessage.style.display = 'block';
 
   // Reset the form after a brief delay (e.g., 3 seconds)
