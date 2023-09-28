@@ -2,7 +2,7 @@
  * File: form.js
  * Author: Jose Carlos Garcia
  * Description: Contains functions related to form handling and submission.
- * Version: 1.2
+ * Version: 1.3
  * Last Modified: 9/21/2023
  */
 
