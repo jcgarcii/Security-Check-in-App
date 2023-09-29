@@ -9,40 +9,15 @@ import sys
 """
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     1.  store.py Functions 
-        - 1. db_setup(): creates the directory and file for the current month and day, if they don't already exist
-        - 2. trans_id(): generates an ID for the transaction, this will be used to reference the user's entry in the database
-        - 3. get_file_paths(): retrieves the file path for the current day's file
-        - 4. append_json_to_csv(): appends data from a JSON object to a CSV file
-        - 5. controller(): controls the flow of the program
-        - 6. main(): main function, calls the controller function
+        - 1. trans_id(): generates an ID for the transaction, this will be used to reference the user's entry in the database
+        - 2. get_file_paths(): retrieves the file path for the current day's file
+        - 3. append_json_to_csv(): appends data from a JSON object to a CSV file
+        - 4. controller(): controls the flow of the program
+        - 5. main(): main function, calls the controller function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
 
 HEADERS = ['ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
-
-#    Retrieves current database for writing, our JS file sends a .JSON object to the backend, which is then written to the file
-#    The file naming convention and layout is as follows: 
-#    [1]: Parent Directory -> month_year
-#    [2]: File Name -> day_month_year.csv 
-
-def db_setup(): 
-    date = datetime.today() 
-    
-    directory = str(date.month) + '_' + str(date.year)
-    file_name = str(date.day)+ '_' + str(date.month) + '_' + str(date.year)
-    
-    file_addr = directory + '/' + file_name + '.csv'
-
-    # Check if the current month's directory exists - if false, create it:
-    if not os.path.exists(directory):
-            os.makedirs(directory)
-    
-    # Check if today's file has been created yet - if false, create it: 
-    if not os.path.exists(file_addr):
-        f = open(file_addr, "x")
-        f.write(','.join(HEADERS)) 
-        
-    print('Directory setup successfully!')
 
 #    Generates a random ID for the transaction, we'll use this to reference the user's entry in the database
 def trans_id(): 

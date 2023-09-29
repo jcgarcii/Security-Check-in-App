@@ -2,7 +2,7 @@
  * File: form.js
  * Author: Jose Carlos Garcia
  * Description: Contains functions related to form handling and submission.
- * Version: 1.3
+ * Version: 2.0
  * Last Modified: 9/21/2023
  */
 
@@ -114,31 +114,34 @@ function objectifyForm() {
   // Update the time immediately when the page loads
   updateCurrentTime();
 
-  const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
-  console.log(jsonUserData); // Print JSON string to console
+  //const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
+  //console.log(jsonUserData); // Print JSON string to console
 }
 
 // Function to write user data to a file
-function writeToFile(){
+function writeToFile() {
   const { spawnSync } = require("child_process");
+  
+  // Convert userData to a JSON string
+  const arg1 = JSON.stringify(userData);
+
+  // 0 for check in, 1 for check out
+  const arg2 = 0;
 
   function callPythonFunction(arg1, arg2) {
-      const pythonProcess = spawnSync("python", [".py", arg1.toString(), arg2.toString()]);
+    const pythonProcess = spawnSync("python", ["backend/store.py", arg1, arg2]);
 
-      if (pythonProcess.error) {
-          console.error("Error executing Python script:", pythonProcess.error);
-          return;
-      }
+    if (pythonProcess.error) {
+      console.error("Error executing Python script:", pythonProcess.error);
+      return;
+    }
 
-      const stdout = pythonProcess.stdout.toString().trim();
-      console.log("Python script result:", stdout);
+    const stdout = pythonProcess.stdout.toString().trim();
+    console.log("Python script result:", stdout);
   }
-}
 
-// Call the Python function with arguments
-const arg1 = 10;
-const arg2 = 20;
-callPythonFunction(arg1, arg2);
+  callPythonFunction(arg1, arg2);
+}
 
 
 // Function to handle form submission
@@ -169,6 +172,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
+  writeToFile(); // Call the function to write user data to a file
 
   thankYouMessage.style.display = 'block';
 
