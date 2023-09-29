@@ -118,7 +118,7 @@ function objectifyForm() {
   //console.log(jsonUserData); // Print JSON string to console
 }
 
-// Function to write user data to a file
+/*// Function to write user data to a file
 function writeToFile() {
   const { spawnSync } = require("child_process");
   
@@ -142,7 +142,7 @@ function writeToFile() {
 
   callPythonFunction(arg1, arg2);
 }
-
+*/
 
 // Function to handle form submission
 function handleSubmit(event) {
@@ -172,7 +172,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
-  writeToFile(); // Call the function to write user data to a file
+ // writeToFile(); // Call the function to write user data to a file
 
   thankYouMessage.style.display = 'block';
 
