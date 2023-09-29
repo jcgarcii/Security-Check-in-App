@@ -34,6 +34,7 @@ function objectifyForm() {
     const visitReasonInput = document.getElementById('visit-reason').value;
     const visitCompanyInput = document.getElementById('visit-company').value;
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -50,6 +51,7 @@ function objectifyForm() {
     const contractorContactInput = document.getElementById('contractor-contact').value;
     const contractorAreaInput = document.getElementById('contractor-area').value;
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -62,6 +64,7 @@ function objectifyForm() {
     i_area = contractorAreaInput
   }else{
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -75,10 +78,10 @@ function objectifyForm() {
   }
 
   // assign values to userData
-  userDate={
+  userData={
+    "ID": i_id,
     "Time In": i_time_in,
     "Time Out": i_time_out,
-    "Time": i_time,
     "Name": i_name,
     "Phone Number": i_phoneNumber,
     "Job": i_job,
@@ -86,6 +89,7 @@ function objectifyForm() {
     "Company": i_company,
     "Contact": i_contact,
     "Area": i_area,
+    "Time": i_time,
   }; 
 
     // Function to update and display the current time
@@ -114,27 +118,27 @@ function objectifyForm() {
   console.log(jsonUserData); // Print JSON string to console
 }
 
-function getData() {
-  const url = apiUrl; // Replace with your API endpoint
+// Function to write user data to a file
+function writeToFile(){
+  const { spawnSync } = require("child_process");
 
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        // Handle non-OK responses here
-        throw new Error(`HTTP error! Status: ${response.status}`);
+  function callPythonFunction(arg1, arg2) {
+      const pythonProcess = spawnSync("python", [".py", arg1.toString(), arg2.toString()]);
+
+      if (pythonProcess.error) {
+          console.error("Error executing Python script:", pythonProcess.error);
+          return;
       }
-      return response.json(); // Parse the response JSON
-    })
-    .then(data => {
-      // Handle the response data here
-      console.log('GET response:', data);
-    })
-    .catch(error => {
-      // Log the specific error details
-      console.error('GET error:', error.message); // Log the error message
-      console.error('GET error response:', error.response); // Log the entire response object
-    });
+
+      const stdout = pythonProcess.stdout.toString().trim();
+      console.log("Python script result:", stdout);
+  }
 }
+
+// Call the Python function with arguments
+const arg1 = 10;
+const arg2 = 20;
+callPythonFunction(arg1, arg2);
 
 
 // Function to handle form submission
@@ -165,7 +169,6 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
-  getData(); 
 
   thankYouMessage.style.display = 'block';
 
