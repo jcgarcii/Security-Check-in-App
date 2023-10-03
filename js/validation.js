@@ -2,7 +2,7 @@
  * File: form.js
  * Author: Jose Carlos Garcia
  * Description: Contains functions related to form handling and submission.
- * Version: 1.3
+ * Version: 2.0
  * Last Modified: 9/21/2023
  */
 
@@ -34,6 +34,7 @@ function objectifyForm() {
     const visitReasonInput = document.getElementById('visit-reason').value;
     const visitCompanyInput = document.getElementById('visit-company').value;
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -50,6 +51,7 @@ function objectifyForm() {
     const contractorContactInput = document.getElementById('contractor-contact').value;
     const contractorAreaInput = document.getElementById('contractor-area').value;
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -62,6 +64,7 @@ function objectifyForm() {
     i_area = contractorAreaInput
   }else{
     // assign values to be filled into user data object
+    i_id = ''
     i_time_in = ''
     i_time_out = ''
     i_time = ''
@@ -75,10 +78,10 @@ function objectifyForm() {
   }
 
   // assign values to userData
-  userDate={
+  userData={
+    "ID": i_id,
     "Time In": i_time_in,
     "Time Out": i_time_out,
-    "Time": i_time,
     "Name": i_name,
     "Phone Number": i_phoneNumber,
     "Job": i_job,
@@ -86,6 +89,7 @@ function objectifyForm() {
     "Company": i_company,
     "Contact": i_contact,
     "Area": i_area,
+    "Time": i_time,
   }; 
 
     // Function to update and display the current time
@@ -110,32 +114,35 @@ function objectifyForm() {
   // Update the time immediately when the page loads
   updateCurrentTime();
 
-  const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
-  console.log(jsonUserData); // Print JSON string to console
+  //const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
+  //console.log(jsonUserData); // Print JSON string to console
 }
 
-function getData() {
-  const url = apiUrl; // Replace with your API endpoint
+/*// Function to write user data to a file
+function writeToFile() {
+  const { spawnSync } = require("child_process");
+  
+  // Convert userData to a JSON string
+  const arg1 = JSON.stringify(userData);
 
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        // Handle non-OK responses here
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json(); // Parse the response JSON
-    })
-    .then(data => {
-      // Handle the response data here
-      console.log('GET response:', data);
-    })
-    .catch(error => {
-      // Log the specific error details
-      console.error('GET error:', error.message); // Log the error message
-      console.error('GET error response:', error.response); // Log the entire response object
-    });
+  // 0 for check in, 1 for check out
+  const arg2 = 0;
+
+  function callPythonFunction(arg1, arg2) {
+    const pythonProcess = spawnSync("python", ["backend/store.py", arg1, arg2]);
+
+    if (pythonProcess.error) {
+      console.error("Error executing Python script:", pythonProcess.error);
+      return;
+    }
+
+    const stdout = pythonProcess.stdout.toString().trim();
+    console.log("Python script result:", stdout);
+  }
+
+  callPythonFunction(arg1, arg2);
 }
-
+*/
 
 // Function to handle form submission
 function handleSubmit(event) {
@@ -165,7 +172,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
-  getData(); 
+ // writeToFile(); // Call the function to write user data to a file
 
   thankYouMessage.style.display = 'block';
 
