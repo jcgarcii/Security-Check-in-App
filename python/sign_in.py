@@ -35,7 +35,7 @@ import sys
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
 
-HEADERS = ['ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
+HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
 
 #    Generates a random ID for the transaction, we'll use this to reference the user's entry in the database
 def trans_id(): 
@@ -67,6 +67,9 @@ def append_json_to_csv(json_object):
     # Convert the JSON object to a Python dictionary
     data = json.loads(json_object)
 
+    # update active status
+    data['Active'] = '1' # 0 = signed out, 1 = signed in
+
     # store transaction id
     data['ID'] = transaction_id
 
@@ -80,30 +83,17 @@ def append_json_to_csv(json_object):
 
     # return 'Data stored successfully!'
     
-#  Option to implement additional functionality with sign ins
-def controller(json_object, command):
-    if command == 0:
-        append_json_to_csv(json_object)
-    else: 
-        print('Invalid command')
-    
-
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 2:
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
     # print ('Number of arguments:', len(sys.argv), 'arguments.')
     json_object = sys.argv[1]
-    command = int(sys.argv[2])
-    
-    # print ('Argument List:', str(sys.argv))
 
-    print('Starting...')
-
-    controller(json_object, command) 
+    append_json_to_csv(json_object)
     
     print('Done. Exiting...')
     sys.exit(0)

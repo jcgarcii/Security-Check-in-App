@@ -80,6 +80,7 @@ function objectifyForm() {
 
   // assign values to userData
   userData={
+    "Active": '', // 0 for active, 1 for inactive
     "ID": i_id,
     "Time In": i_time_in,
     "Time Out": i_time_out,
@@ -123,13 +124,7 @@ function objectifyForm() {
 // Function to write user data to a file
 async function writeToFile() {
   // Convert userData to a JSON string
-  const arg1 = JSON.stringify(userData);
-
-  // 0 for check-in, 1 for check-out
-  const arg2 = '0';
-
-  // array for args 
-  const args = [arg1, arg2];
+  const args = JSON.stringify(userData);
 
   try {
     // Send a message to the main process to call the Python script using ipcRenderer.invoke

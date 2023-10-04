@@ -1,12 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
-const { spawnSync, spawn } = require('child_process');
+const { spawn } = require('child_process');
 
 ipcMain.handle('python_sign_in', async (event, args) => {
   try {
     // Call the Python script when requested from the renderer process
-    const pythonProcess = spawn('python', ['./python/sign_in.py', args[0], args[1]]);
+    const pythonProcess = spawn('python', ['./python/check_user.py', args]);
 
     pythonProcess.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
