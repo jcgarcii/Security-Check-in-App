@@ -77,6 +77,8 @@ if __name__ == "__main__":
     json_object = int(sys.argv[0])
     command = int(sys.argv[1])
 
+    print('Starting...', json_object, command)
+
     result = controller(json_object, command) 
     
     print('Done. Exiting...')
