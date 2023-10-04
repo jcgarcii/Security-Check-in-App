@@ -154,6 +154,16 @@
     color: #333; /* Darken text color on hover */
   }
 
+  #signin-out-button {
+    position: fixed;
+    bottom: calc(5px + (100vh - 100%));
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
   
   /* Style for the trashcan icon button */
   .delete-button {

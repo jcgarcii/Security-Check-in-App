@@ -31,10 +31,7 @@ function toggleVisitPurpose() {
     const jobSelect = document.getElementById('job');
     const visitPurposeFieldset = document.getElementById('visit-purpose');
     const contractPurposeFieldset = document.getElementById('contractor-purpose');
-
-    //FieldSet Attributes to be set as required or not required in the Visitor FieldSet
-    const visitor_purpose = document.getElementById('visit-purpose');
-        
+     
      if (jobSelect.value === 'Visitor: Customer' || jobSelect.value === 'Visitor: Partner' || jobSelect.value === 'Visitor: Other'  ){
         setContractorFields(false);
         setVisitorFields(true)
@@ -76,6 +73,40 @@ document.getElementById('job').addEventListener('change', toggleVisitPurpose);
 // Call the function initially to set the initial state
 toggleVisitPurpose();
 
+// Function to toggle the sign-in/out form type
+function toggleFormType(){
+  const switchButton = document.getElementById('signin-out-button');
+  const jobDropDown = document.getElementById('job');
+  const jobLabel = document.getElementById('job-label');
+
+  // default to sign-in form
+  if (switchButton.textContent === 'Sign-In') {
+    jobDropDown.required = true; 
+    jobDropDown.style.display = 'block';
+    jobLabel.style.display = 'block'; 
+  } else {
+    jobDropDown.required = false;
+    jobDropDown.style.display = 'none';
+    jobLabel.style.display = 'none'; 
+  }
+  // Add an event listener to the button to toggle its text between "Sign-In" and "Sign-Out"
+  switchButton.addEventListener('click', () => {
+    if (switchButton.textContent === 'Sign-In') {
+      jobDropDown.required = false;
+      jobDropDown.style.display = 'none';
+      jobLabel.style.display = 'none'; 
+      switchButton.textContent = 'Sign-Out';
+    } else {
+      jobDropDown.required = true;
+      jobDropDown.style.display = 'block';
+      jobLabel.style.display = 'block'; 
+      switchButton.textContent = 'Sign-In';
+    }
+  });
+}
+
+// Call the function initially to set the initial state
+toggleFormType();
 
 // Function to add a new name entry with a delete button
 function addName() {

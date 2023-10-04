@@ -30,54 +30,68 @@ function objectifyForm() {
   const nameInput = document.getElementById('user_name').value;
   const phoneNumberInput = document.getElementById('tel').value;
   const jobSelect = document.getElementById('job').value;
+  const buttonSwitch = document.getElementById('signin-out-button')
 
-  if(jobSelect === 'Visitor: Customer' || jobSelect === 'Visitor: Partner' || jobSelect === 'Visitor: Other'){
-    const visitReasonInput = document.getElementById('visit-reason').value;
-    const visitCompanyInput = document.getElementById('visit-company').value;
-    // assign values to be filled into user data object
-    i_id = ''
-    i_time_in = ''
-    i_time_out = ''
-    i_time = ''
-    i_name = nameInput
-    i_phoneNumber = phoneNumberInput
-    i_job = jobSelect
-    i_reason = visitReasonInput
-    i_company = visitCompanyInput
-    i_contact = ''
-    i_area = ''
-  }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
-    const contractorReasonInput = document.getElementById('contractor-reason').value;
-    const contractorCompanyInput = document.getElementById('contractor-company').value;
-    const contractorContactInput = document.getElementById('contractor-contact').value;
-    const contractorAreaInput = document.getElementById('contractor-area').value;
-    // assign values to be filled into user data object
-    i_id = ''
-    i_time_in = ''
-    i_time_out = ''
-    i_time = ''
-    i_name = nameInput
-    i_phoneNumber = phoneNumberInput
-    i_job = jobSelect
-    i_reason = contractorReasonInput
-    i_company = contractorCompanyInput
-    i_contact = contractorContactInput
-    i_area = contractorAreaInput
+  if(buttonSwitch.textContent == 'Sign-Out'){
+    i_id = '';
+    i_time_in = '';
+    i_time_out = '';
+    i_time = '';
+    i_name = nameInput;
+    i_phoneNumber = phoneNumberInput;
+    i_job = '';
+    i_reason = '';
+    i_company = '';
+    i_contact = '';
+    i_area = '';
   }else{
-    // assign values to be filled into user data object
-    i_id = ''
-    i_time_in = ''
-    i_time_out = ''
-    i_time = ''
-    i_name = nameInput
-    i_phoneNumber = phoneNumberInput
-    i_job = 'Cargill Emplooyee'
-    i_reason = jobSelect
-    i_company = 'Cargill'
-    i_contact = ''
-    i_area = ''
+    if(jobSelect === 'Visitor: Customer' || jobSelect === 'Visitor: Partner' || jobSelect === 'Visitor: Other'){
+      const visitReasonInput = document.getElementById('visit-reason').value;
+      const visitCompanyInput = document.getElementById('visit-company').value;
+      // assign values to be filled into user data object
+      i_id = ''
+      i_time_in = ''
+      i_time_out = ''
+      i_time = ''
+      i_name = nameInput
+      i_phoneNumber = phoneNumberInput
+      i_job = jobSelect
+      i_reason = visitReasonInput
+      i_company = visitCompanyInput
+      i_contact = ''
+      i_area = ''
+    }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
+      const contractorReasonInput = document.getElementById('contractor-reason').value;
+      const contractorCompanyInput = document.getElementById('contractor-company').value;
+      const contractorContactInput = document.getElementById('contractor-contact').value;
+      const contractorAreaInput = document.getElementById('contractor-area').value;
+      // assign values to be filled into user data object
+      i_id = '';
+      i_time_in = '';
+      i_time_out = '';
+      i_time = '';
+      i_name = nameInput;
+      i_phoneNumber = phoneNumberInput;
+      i_job = jobSelect;
+      i_reason = contractorReasonInput;
+      i_company = contractorCompanyInput;
+      i_contact = contractorContactInput;
+      i_area = contractorAreaInput;
+    }else{
+      // assign values to be filled into user data object
+      i_id = '';
+      i_time_in = '';
+      i_time_out = '';
+      i_time = '';
+      i_name = nameInput;
+      i_phoneNumber = phoneNumberInput;
+      i_job = 'Cargill Emplooyee';
+      i_reason = jobSelect;
+      i_company = 'Cargill';
+      i_contact = '';
+      i_area = '';
+    }
   }
-
   // assign values to userData
   userData={
     "Active": '', // 0 for active, 1 for inactive
