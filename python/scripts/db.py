@@ -1,4 +1,22 @@
-# Description: This file contains the functions that are used to store the data in the database.
+"""
+db.py
+
+Description:
+This file contains functions to initialize the database daily
+
+Usage:
+This is a script file, it is not meant to be imported. 
+It is meant to be scheduled to run daily, and will create a new file for each day. 
+
+Author:
+Jose Carlos Garcia
+
+Date:
+10/4/2023
+
+Version: 
+1.0.1
+"""
 import os
 from datetime import date 
 
@@ -30,9 +48,8 @@ def db_setup():
     
     # Check if today's file has been created yet - if false, create it: 
     if not os.path.exists(file_addr):
-        f = open(file_addr, "x")
-        f.write(','.join(HEADERS)) 
+        with open(file_addr, mode='w', newline='') as csv_file:
+            csv_file.write(','.join(HEADERS) + ',\n') 
         
     print('Directory setup successfully!')
-
 db_setup()

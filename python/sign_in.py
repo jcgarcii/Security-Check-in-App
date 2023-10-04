@@ -1,8 +1,26 @@
-# Description: This file contains the functions that are used to store the data in the database.
+"""
+sign_in.py
+
+Description:
+This file contains functions to store sign in users to the database
+
+Usage:
+This is a script file, it is not meant to be imported.
+It is called from the frontend, and will store the user's information in the database.
+
+Author:
+Jose Carlos Garcia
+
+Date:
+10/4/2023
+
+Version: 
+2.0.1
+"""
 import json
 import random
 import os
-import datetime
+from datetime import date 
 import csv
 import sys
 
@@ -26,16 +44,18 @@ def trans_id():
 
 # Function to retrieve the file path for the current day's file
 def get_file_paths():
-    date = datetime.today() 
+    date_time = date.today() 
     
-    directory = str(date.month) + '_' + str(date.year)
-    file_name = str(date.day)+ '_' + str(date.month) + '_' + str(date.year)
-
+    directory = str(date_time.month) + '_' + str(date_time.year)
+    file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
+    
     file_addr = directory + '/' + file_name + '.csv'
 
     return file_addr
 
-#   Function to append data from a JSON object to a CSV file
+import csv
+
+# Function to append data from a JSON object to a CSV file
 def append_json_to_csv(json_object):
 
     # Get the current file path
@@ -58,27 +78,35 @@ def append_json_to_csv(json_object):
         # Write the data as a new row in the CSV file
         csv_writer.writerow(data)
 
-#  Function to control the flow of the program
+    # return 'Data stored successfully!'
+    
+#  Option to implement additional functionality with sign ins
 def controller(json_object, command):
     if command == 0:
         append_json_to_csv(json_object)
-    elif command == 1:
-        print('Coming soon!')
-    else:
-        print('Invalid command!')
+    else: 
+        print('Invalid command')
     
 
-if __name__ == "__main__":
+# Main function, calls the controller function
+def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
-    json_object = int(sys.argv[0])
-    command = int(sys.argv[1])
+    # print ('Number of arguments:', len(sys.argv), 'arguments.')
+    json_object = sys.argv[1]
+    command = int(sys.argv[2])
+    
+    # print ('Argument List:', str(sys.argv))
 
-    print('Starting...', json_object, command)
+    print('Starting...')
 
-    result = controller(json_object, command) 
+    controller(json_object, command) 
     
     print('Done. Exiting...')
+    sys.exit(0)
+
+#if __name__ == "__main__":
+main()

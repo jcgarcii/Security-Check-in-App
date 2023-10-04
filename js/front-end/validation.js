@@ -126,7 +126,7 @@ async function writeToFile() {
   const arg1 = JSON.stringify(userData);
 
   // 0 for check-in, 1 for check-out
-  const arg2 = 0;
+  const arg2 = '0';
 
   // array for args 
   const args = [arg1, arg2];
