@@ -1,15 +1,16 @@
 /**
- * File: form.js
+ * File: validation.js
  * Author: Jose Carlos Garcia
  * Description: Contains functions related to form handling and submission.
  * Version: 2.0
  * Last Modified: 9/21/2023
  */
 
-let userData = {}; // Empty object to store user data
-const apiUrl = 'https://msschu05mp.pcg.cargill.com/piwebapi/assetdatabases/F1RDZ_V1ACw-sE-EcebTfGIGhQbEk9SdqtBUC2vWiEA02JNQTVNTQ0hVMDVNUFxERVZfU0NIVVlMRVIgQVNTRVQgVFdJTg'; // Define the API URL as a global variable
-const dummyUrl = 'https://jsonplaceholder.typicode.com/todos/1'; // Define the API URL as a global variable
+const { ipcRenderer } = window.api; // Import ipcRenderer from the Electron main process
 
+//const main_ipc_renderer = window.api; // Import ipcRenderer from the Electron main process
+
+let userData = {}; // Empty object to store user data var { ipcRenderer } = win.require('electron');
 // Function to validate the phone number length
 function validatePhoneNumber() {
   const phoneNumberInput = document.getElementById('tel');
@@ -118,31 +119,29 @@ function objectifyForm() {
   //console.log(jsonUserData); // Print JSON string to console
 }
 
-/*// Function to write user data to a file
-function writeToFile() {
-  const { spawnSync } = require("child_process");
-  
+
+// Function to write user data to a file
+async function writeToFile() {
   // Convert userData to a JSON string
   const arg1 = JSON.stringify(userData);
 
-  // 0 for check in, 1 for check out
+  // 0 for check-in, 1 for check-out
   const arg2 = 0;
 
-  function callPythonFunction(arg1, arg2) {
-    const pythonProcess = spawnSync("python", ["backend/store.py", arg1, arg2]);
+  // array for args 
+  const args = [arg1, arg2];
 
-    if (pythonProcess.error) {
-      console.error("Error executing Python script:", pythonProcess.error);
-      return;
-    }
+  try {
+    // Send a message to the main process to call the Python script using ipcRenderer.invoke
+    const response = await window.api.invoke('python_sign_in', args);
 
-    const stdout = pythonProcess.stdout.toString().trim();
-    console.log("Python script result:", stdout);
+    console.log('Received response from main process:', response);
+  } catch (error) {
+    console.error('Error communicating with main process:', error);
   }
-
-  callPythonFunction(arg1, arg2);
 }
-*/
+
+// ... Rest of your validation.js code
 
 // Function to handle form submission
 function handleSubmit(event) {
@@ -172,7 +171,7 @@ function handleSubmit(event) {
   cargillBanner.style.display = 'none';
 
   objectifyForm(); // Call the function to place user input into the userData object
- // writeToFile(); // Call the function to write user data to a file
+  writeToFile(); // Call the function to write user data to a file
 
   thankYouMessage.style.display = 'block';
 
