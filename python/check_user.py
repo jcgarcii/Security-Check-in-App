@@ -61,10 +61,7 @@ def get_status(JSON_object):
     if not os.path.exists(file_path):
         print('File does not exist!')
         exit(1) 
-    
-    if json_object['Job'] == '':
-        request = False 
-    
+        
     # Open the file
     with open(file_path, mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -83,8 +80,7 @@ def get_status(JSON_object):
                     print('Error: Invalid value for active!')
                     return None, None
         
-        # handles the case if the user used the check-out form without using the check-in form
-        if request == False:
+        if json_object['Job'] == '':
             return None, None
         else: 
             # no such user entry in the database
