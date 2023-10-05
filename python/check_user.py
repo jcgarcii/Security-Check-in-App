@@ -52,7 +52,7 @@ def get_file_paths():
 # Function to check json_object against database, returns true if user is signed in, false otherwise
 # additionally, checks for other situtations, such as if the user is already signed out, or if the user is not in the database
 def get_status(JSON_object):
-    print('Checking status...')
+    #print('Checking status...')
     # Get file path
     file_path = get_file_paths()
     json_object = json.loads(JSON_object)
@@ -61,6 +61,9 @@ def get_status(JSON_object):
     if not os.path.exists(file_path):
         print('File does not exist!')
         exit(1) 
+    
+    if json_object['Job'] == '':
+        request = False 
     
     # Open the file
     with open(file_path, mode='r') as csv_file:
@@ -79,9 +82,13 @@ def get_status(JSON_object):
                     # Error, invalid value for active
                     print('Error: Invalid value for active!')
                     return None, None
-
-        # no such user entry in the database
-        return False, None
+        
+        # handles the case if the user used the check-out form without using the check-in form
+        if request == False:
+            return None, None
+        else: 
+            # no such user entry in the database
+            return False, None
 
 # Option to implement additional functionality with sign ins
 def controller(data, command):
@@ -115,7 +122,13 @@ def main():
     elif status == False:
         command = 0
         controller(json_object, command) 
+    
+    # if user used the check-out form without using the check-in form
+    elif status == None:
+        print('Code 1: User is not in the database')
+        return sys.exit(3) # 3 = user is not in the database, prompt log form
 
+    # if there was an error, for whatever reason
     else: 
         print('Error: Check the logs for more information.')
         exit(1)
