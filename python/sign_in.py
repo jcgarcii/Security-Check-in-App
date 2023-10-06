@@ -95,7 +95,6 @@ def main():
 
     append_json_to_csv(json_object)
     
-    print('Done. Exiting...')
     sys.exit(0)
 
 #if __name__ == "__main__":

@@ -7,9 +7,9 @@
  */
 
 const { ipcRenderer } = window.api; // Import ipcRenderer from the Electron main process
-//const main_ipc_renderer = window.api; // Import ipcRenderer from the Electron main process
 
-let userData = {}; // Empty object to store user data var { ipcRenderer } = win.require('electron');
+let userData = {}; // Empty object to store user data
+
 // Function to validate the phone number length
 function validatePhoneNumber() {
   const phoneNumberInput = document.getElementById('tel');
@@ -128,9 +128,6 @@ function objectifyForm() {
 
   // Update the time immediately when the page loads
   updateCurrentTime();
-
-  //const jsonUserData = JSON.stringify(userData); // Convert JS object to JSON string
-  //console.log(jsonUserData); // Print JSON string to console
 }
 
 

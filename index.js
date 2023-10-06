@@ -1,8 +1,17 @@
+/**
+ * File: index.js
+ * Author: Jose Carlos Garcia
+ * Description: Main Electron process that creates the browser window and handles communication with the Python script.
+ * Version: 2.0
+ * Last Modified: 9/21/2023
+ */
+
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const { spawn } = require('child_process');
 
+// Function to handle asynchronous messages: signing users in and out of the building
 ipcMain.handle('python_sign_in', async (event, args) => {
   try {
     // Call the Python script when requested from the renderer process
@@ -30,6 +39,7 @@ ipcMain.handle('python_sign_in', async (event, args) => {
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
+// Function to create the browser window
 async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({

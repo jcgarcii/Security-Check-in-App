@@ -121,9 +121,6 @@ def main():
 
     update_csv(user_id)
 
-    # controller(json_object, command) 
-    
-    print('Signed Out. Exiting...')
     sys.exit(0)
 
 #if __name__ == "__main__":

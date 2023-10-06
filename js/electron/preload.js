@@ -1,3 +1,11 @@
+/**
+ * File: preload.js
+ * Author: Jose Carlos Garcia
+ * Description: Main Electron preloader that exposes protected methods to the renderer process.
+ * Version: 2.0
+ * Last Modified: 10/1/2023
+ */
+
 const {
     contextBridge,
     ipcRenderer
