@@ -7,7 +7,6 @@
  */
 
 const { ipcRenderer } = window.api; // Import ipcRenderer from the Electron main process
-
 //const main_ipc_renderer = window.api; // Import ipcRenderer from the Electron main process
 
 let userData = {}; // Empty object to store user data var { ipcRenderer } = win.require('electron');
@@ -150,7 +149,16 @@ async function writeToFile() {
   }
 }
 
-// ... Rest of your validation.js code
+// Function to remove all additional name fields and delete buttons
+function removeAllNames() {
+  const namesContainer = document.getElementById('names');
+  const nameEntries = namesContainer.querySelectorAll('.name-entry');
+
+  // Remove all name entries
+  nameEntries.forEach(entry => {
+    namesContainer.removeChild(entry);
+  });
+}
 
 // Function to handle form submission
 function handleSubmit(event) {
@@ -191,6 +199,7 @@ function handleSubmit(event) {
     currentTimeElement.style.display = 'block';
     submitButton.style.display = 'block';
     cargillBanner.style.display = 'block';
+    removeAllNames(); // Remove all additional name fields and delete buttons
     document.getElementById('check-in-form').reset(); // Reset the form
   }, 3000); // Adjust the delay (in milliseconds) as needed
 }
