@@ -40,7 +40,7 @@ def db_setup():
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = directory + '/' + file_name + '.csv'
+    file_addr = 'data/' + directory + '/' + file_name + '.csv'
 
     # Check if the current month's directory exists - if false, create it:
     if not os.path.exists(directory):

@@ -44,7 +44,7 @@ def get_file_paths():
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = directory + '/' + file_name + '.csv'
+    file_addr = 'data/' + directory + '/' + file_name + '.csv'
 
     return file_addr
 
