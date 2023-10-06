@@ -10,12 +10,23 @@ const { ipcRenderer } = window.api; // Import ipcRenderer from the Electron main
 
 let userData = {}; // Empty object to store user data
 
+function location_tests(){ 
+    // Get the full URL
+  const currentURL = window.location.href;
+  console.log("Current URL:", currentURL);
+
+  // Get just the path part of the URL
+  const currentPath = window.location.pathname;
+  console.log("Current Path:", currentPath);
+}
+
+location_tests() // Call the function to get the current URL
+
 // Function to validate the phone number length
 function validatePhoneNumber() {
-  const phoneNumberInput = document.getElementById('tel');
-  const phoneNumber = phoneNumberInput.value.replace(/\D/g, ''); // Remove non-numeric characters
+  let tel = phoneNumberInput.value 
 
-  if (phoneNumber.length !== 10) {
+  if (tel.length !== 12) {
     // Display an error message or take appropriate action
     alert('Please enter a valid 10-digit phone number (e.g., 888-888-8888).');
     phoneNumberInput.focus(); // Focus back on the input field
@@ -26,66 +37,65 @@ function validatePhoneNumber() {
 
 // Function to place user input into the userData object
 function objectifyForm() {
-  const nameInput = document.getElementById('user_name').value;
-  const phoneNumberInput = document.getElementById('tel').value;
-  const jobSelect = document.getElementById('job').value;
-  const buttonSwitch = document.getElementById('signin-out-button')
+  const nameInputValue = document.getElementById('user_name').value;
+  const phoneNumberInputValue = document.getElementById('tel').value;
+  const jobSelectValue = document.getElementById('job').value;
 
-  if(buttonSwitch.textContent == 'Sign-Out'){
+  if(switchButton.textContent == 'I want to: Sign-Out'){
     i_id = '';
     i_time_in = '';
     i_time_out = '';
     i_time = '';
-    i_name = nameInput;
-    i_phoneNumber = phoneNumberInput;
+    i_name = nameInputValue;
+    i_phoneNumber = phoneNumberInputValue;
     i_job = '';
     i_reason = '';
     i_company = '';
     i_contact = '';
     i_area = '';
   }else{
-    if(jobSelect === 'Visitor: Customer' || jobSelect === 'Visitor: Partner' || jobSelect === 'Visitor: Other'){
-      const visitReasonInput = document.getElementById('visit-reason').value;
-      const visitCompanyInput = document.getElementById('visit-company').value;
+    if(jobSelectValue === 'Visitor: Customer' || jobSelectValue === 'Visitor: Partner' || jobSelectValue === 'Visitor: Other'){
+      const visitReasonInputValue = document.getElementById('visit-reason').value;
+      const visitCompanyInputValue = document.getElementById('visit-company').value;
       // assign values to be filled into user data object
       i_id = ''
       i_time_in = ''
       i_time_out = ''
       i_time = ''
-      i_name = nameInput
-      i_phoneNumber = phoneNumberInput
-      i_job = jobSelect
-      i_reason = visitReasonInput
-      i_company = visitCompanyInput
+      i_name = nameInputValue
+      i_phoneNumber = phoneNumberInputValue
+      i_job = jobSelectValue
+      i_reason = visitReasonInputValue
+      i_company = visitCompanyInputValue
       i_contact = ''
       i_area = ''
-    }else if(jobSelect === 'Contractor: Performing Work' || jobSelect === 'Contractor: Scouting Work' || jobSelect === 'Contractor: Supplier'){
-      const contractorReasonInput = document.getElementById('contractor-reason').value;
-      const contractorCompanyInput = document.getElementById('contractor-company').value;
-      const contractorContactInput = document.getElementById('contractor-contact').value;
-      const contractorAreaInput = document.getElementById('contractor-area').value;
+    }else if(jobSelectValue === 'Contractor: Performing Work' || jobSelectValue === 'Contractor: Scouting Work' || jobSelectValue === 'Contractor: Supplier'){
+      const contractorReasonInputValue = document.getElementById('contractor-reason').value;
+      const contractorCompanyInputValue = document.getElementById('contractor-company').value;
+      const contractorContactInputValue = document.getElementById('contractor-contact').value;
+      const contractorAreaInputValue = document.getElementById('contractor-area').value;
       // assign values to be filled into user data object
       i_id = '';
       i_time_in = '';
       i_time_out = '';
       i_time = '';
-      i_name = nameInput;
-      i_phoneNumber = phoneNumberInput;
-      i_job = jobSelect;
-      i_reason = contractorReasonInput;
-      i_company = contractorCompanyInput;
-      i_contact = contractorContactInput;
-      i_area = contractorAreaInput;
+      i_name = nameInputValue;
+      i_phoneNumber = phoneNumberInputValue;
+      i_job = jobSelectValue;
+      i_reason = contractorReasonInputValue;
+      i_company = contractorCompanyInputValue;
+      i_contact = contractorContactInputValue;
+      i_area = contractorAreaInputValue;
     }else{
       // assign values to be filled into user data object
       i_id = '';
       i_time_in = '';
       i_time_out = '';
       i_time = '';
-      i_name = nameInput;
-      i_phoneNumber = phoneNumberInput;
+      i_name = nameInputValue;
+      i_phoneNumber = phoneNumberInputValue;
       i_job = 'Cargill Emplooyee';
-      i_reason = jobSelect;
+      i_reason = jobSelectValue;
       i_company = 'Cargill';
       i_contact = '';
       i_area = '';
@@ -148,12 +158,12 @@ async function writeToFile() {
 
 // Function to remove all additional name fields and delete buttons
 function removeAllNames() {
-  const namesContainer = document.getElementById('names');
-  const nameEntries = namesContainer.querySelectorAll('.name-entry');
+  const namesContainerValid = document.getElementById('names');
+  const nameEntriesValid = namesContainerValid.querySelectorAll('.name-entry');
 
   // Remove all name entries
-  nameEntries.forEach(entry => {
-    namesContainer.removeChild(entry);
+  nameEntriesValid.forEach(entry => {
+    namesContainerValid.removeChild(entry);
   });
 }
 
@@ -168,21 +178,13 @@ function handleSubmit(event) {
     return; // Exit the function without proceeding further
   }
 
-  // Display the "Thank you" message
-  const thankYouMessage = document.getElementById('thank-you-message');
-  const userDetailsFieldset = document.getElementById('details');
-  const visitPurposeFieldset = document.getElementById('visit-purpose');
-  const visitContractorPurposeFieldset = document.getElementById('contractor-purpose');
-  const submitButton = document.getElementById('submit-button');
-  const cargillBanner = document.getElementById('cargill-banner');
-  const currentTimeElement = document.getElementById('current-time');
-
   userDetailsFieldset.style.display = 'none';
   visitPurposeFieldset.style.display = 'none';
-  visitContractorPurposeFieldset.style.display = 'none'; 
+  contractorPurposeFieldset.style.display = 'none'; 
   currentTimeElement.style.display = 'none';
   submitButton.style.display = 'none';
   cargillBanner.style.display = 'none';
+  switchButton.style.display = 'none'; // Hide the switch button
 
   objectifyForm(); // Call the function to place user input into the userData object
   writeToFile(); // Call the function to write user data to a file
@@ -196,6 +198,7 @@ function handleSubmit(event) {
     currentTimeElement.style.display = 'block';
     submitButton.style.display = 'block';
     cargillBanner.style.display = 'block';
+    switchButton.style.display = 'block'; // Show the switch button
     removeAllNames(); // Remove all additional name fields and delete buttons
     document.getElementById('check-in-form').reset(); // Reset the form
   }, 3000); // Adjust the delay (in milliseconds) as needed

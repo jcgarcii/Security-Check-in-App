@@ -6,20 +6,6 @@
  * Last Modified: 9/21/2023
  */
 
-// Main Form Inputs 
-const nameInput = document.getElementById('user_name');
-const phoneNumberInput = document.getElementById('tel');
-
-// Visitor Fields
-const visitReasonInput = document.getElementById('visit-reason');
-const formatVisitCompanyInput = document.getElementById('visit-company');
-
-// Contractor Fields
-const contractorReasonInput = document.getElementById('contractor-reason');
-const contractorCompanyInput = document.getElementById('contractor-company');
-const contractorContactInput = document.getElementById('contractor-contact');
-const contractorAreaInput = document.getElementById('contractor-area');
-
   // Function to format the phone number as the user types
   function formatPhoneNumber() {
 

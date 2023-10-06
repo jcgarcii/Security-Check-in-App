@@ -6,29 +6,6 @@
  * Last Modified: 9/21/2023
  */
 
-// Document Elements 
-const form = document.getElementById('check-in-form');
-const currentTimeElement = document.getElementById('current-time');
-const switchButton = document.getElementById('signin-out-button');
-
-// Main Fieldset Inputs 
-const jobLabel = document.getElementById('job-label');
-const jobSelect = document.getElementById('job');
-const visitPurposeFieldset = document.getElementById('visit-purpose');
-const contractPurposeFieldset = document.getElementById('contractor-purpose');
-
-// Contractor Field Variable Inputs 
-const contractor_purpose = document.getElementById('contractor-reason');
-const contractor_company = document.getElementById('contractor-company');
-const contractor_contact = document.getElementById('contractor-contact');
-const namesContainer = document.getElementById('names');
-const nameEntries = namesContainer.querySelectorAll('.name-entry');
-const newNameEntry = document.createElement('div');
-
-//Visitor Field Variable Inputs
-const visitor_purpose = document.getElementById('visit-reason');
-
-
 // Function to update and display the current time
 function updateCurrentTime() {
     const now = new Date();
@@ -50,36 +27,35 @@ function updateCurrentTime() {
 
   // Function to show or hide the visit purpose fieldset based on the selected visitor type
 function toggleVisitPurpose() {
-
      if (jobSelect.value === 'Visitor: Customer' || jobSelect.value === 'Visitor: Partner' || jobSelect.value === 'Visitor: Other'  ){
         setContractorFields(false);
         setVisitorFields(true)
         visitPurposeFieldset.style.display = 'block';
-        contractPurposeFieldset.style.display = 'none'; 
+        contractorPurposeFieldset.style.display = 'none'; 
         }
       else if(jobSelect.value === 'Contractor: Performing Work' || jobSelect.value === 'Contractor: Scouting Work' || jobSelect.value === 'Contractor: Supplier'){ 
         setContractorFields(true);
         setVisitorFields(false);
         visitPurposeFieldset.style.display = 'none';
-        contractPurposeFieldset.style.display = 'block';
+        contractorPurposeFieldset.style.display = 'block';
       }
       else{
         setContractorFields(false);
         setVisitorFields(false);
         visitPurposeFieldset.style.display = 'none';
-        contractPurposeFieldset.style.display = 'none';
+        contractorPurposeFieldset.style.display = 'none';
       }
     }
 
     function setContractorFields(viewOption) {
-      contractor_purpose.required = viewOption;
-      contractor_company.required = viewOption;
-      contractor_contact.required = viewOption;
+      contractorReasonInput.required = viewOption;
+      contractorCompanyInput.required = viewOption;
+      contractorContactInput.required = viewOption;
     }
     
     // Function to show or hide the visitor purpose fieldset based on the selected visitor type
     function setVisitorFields(viewOption) {
-      visitor_purpose.required = viewOption;
+      visitReasonInput.required = viewOption;
     }
 // Add an event listener to the job select element to call the function when the selection changes
 jobSelect.addEventListener('change', toggleVisitPurpose);
@@ -90,27 +66,35 @@ toggleVisitPurpose();
 // Function to toggle the sign-in/out form type
 function toggleFormType(){
   // default to sign-in form
-  if (switchButton.textContent === 'Sign-In') {
+  if (switchButton.textContent === 'I want to: Sign-In') {
     jobSelect.required = true; 
     jobSelect.style.display = 'block';
     jobLabel.style.display = 'block'; 
   } else {
     jobSelect.required = false;
+    contractorReasonInput.required = false;
+    contractorCompanyInput.required = false;
+    contractorContactInput.required = false;
+    visitReasonInput.required = false;
     jobSelect.style.display = 'none';
     jobLabel.style.display = 'none'; 
   }
   // Add an event listener to the button to toggle its text between "Sign-In" and "Sign-Out"
   switchButton.addEventListener('click', () => {
-    if (switchButton.textContent === 'Sign-In') {
+    if (switchButton.textContent === 'I want to: Sign-In') {
       jobSelect.required = false;
+      contractorReasonInput.required = false;
+      contractorCompanyInput.required = false;
+      contractorContactInput.required = false;
+      visitReasonInput.required = false;
       jobSelect.style.display = 'none';
       jobLabel.style.display = 'none'; 
-      switchButton.textContent = 'Sign-Out';
+      switchButton.textContent = 'I want to: Sign-Out';
     } else {
       jobSelect.required = true;
       jobSelect.style.display = 'block';
       jobLabel.style.display = 'block'; 
-      switchButton.textContent = 'Sign-In';
+      switchButton.textContent = 'I want to: Sign-In';
     }
   });
 }
@@ -120,6 +104,10 @@ toggleFormType();
 
 // Function to add a new name entry with a delete button
 function addName() {
+  // Contractor: Additional Names Variable Inputs 
+  const namesContainer = document.getElementById('names');
+  const nameEntries = namesContainer.querySelectorAll('.name-entry');
+  const newNameEntry = document.createElement('div');
   newNameEntry.className = 'name-entry';
 
   // Clone the HTML for the name field and delete button
@@ -158,20 +146,6 @@ function addName() {
   updateDeleteButtons();
 }
 
-
-// Set the button's position and width based on the form's position and width
-function updateButtonPosition() {
-  const formRect = form.getBoundingClientRect();
-
-  switchButton.style.width = `${formRect.width}px`;
-  switchButton.style.bottom = `${window.innerHeight - formRect.bottom + 10}px`;
-}
-
-// Add an event listener for window resize events
-window.addEventListener('resize', updateButtonPosition);
-
-// Call updateButtonPosition initially to set the initial state
-updateButtonPosition();
 
 // Function to update the visibility of delete buttons
 function updateDeleteButtons() {
