@@ -15,7 +15,7 @@ Date:
 10/4/2023
 
 Version: 
-2.0.0
+2.1.0
 """
 import json
 import random
@@ -33,7 +33,8 @@ import subprocess
         - 2. get_file_paths(): retrieves the file path for the current day's file
         - 3. append_json_to_csv(): appends data from a JSON object to a CSV file
         - 4. controller(): controls the flow of the program
-        - 5. main(): main function, calls the controller function
+        - 5. check_db(): checks if the database exists
+        - 6. main(): main function, calls the controller function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
 
@@ -101,12 +102,22 @@ def controller(data, command):
         print(f"Error: {e}")
         sys.exit(1)
 
+# Check if the database exists
+def check_db():
+    try: 
+        subprocess.run(['python', 'python/scripts/db.py'], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
     if len(sys.argv) != 3:
         print("Usage: python your_python_script.py arg1")
         sys.exit(1)
+
+    check_db()
 
     data = sys.argv[1]
     additionalNames = sys.argv[2]
