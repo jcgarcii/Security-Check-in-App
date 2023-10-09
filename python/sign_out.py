@@ -109,11 +109,10 @@ def main():
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
-    arguments = sys.argv[1]
-    user_id = arguments[0]
-    
+    user_id = sys.argv[1]
+
     global appFilePath
-    appFilePath = arguments[1]
+    appFilePath = sys.argv[2]
 
     print('Signing Out...')
 

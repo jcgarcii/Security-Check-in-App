@@ -85,12 +85,11 @@ def main():
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
-    arguments = sys.argv[1]
     # print ('Number of arguments:', len(sys.argv), 'arguments.')
-    json_object = arguments[0]
+    json_object = sys.argv[1]
 
     global appFilePath
-    appFilePath = arguments[1]
+    appFilePath = sys.argv[2]
 
 
     append_json_to_csv(json_object)

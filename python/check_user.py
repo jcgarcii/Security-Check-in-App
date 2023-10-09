@@ -91,14 +91,14 @@ def get_status(data):
             return signed_in, matching_ids  # Return status and matching_ids
 
 # Option to implement additional functionality with sign ins
-def controller(data, command):
+def controller(data, command, path):
     try:
         if command == 0:
             # Call sign-in and wait for it to complete
-            subprocess.run(['python', 'python/sign_in.py', data], check=True)
+            subprocess.run(['python', 'python/sign_in.py', data, path], check=True)
         elif command == 1: 
             # Call sign-out and wait for it to complete
-            subprocess.run(['python', 'python/sign_out.py', data], check=True)
+            subprocess.run(['python', 'python/sign_out.py', data, path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
         sys.exit(1)
@@ -136,29 +136,23 @@ def main():
     # if user is signed-in, sign them out
     if status == True:
         command = 1
-        o_data = []
+        file_path = get_file_paths()
         for id in matchingID:
-            o_data.append(id)
-            o_data.append(get_file_paths())
-            controller(o_data, command) 
+            controller(id, command, file_path) # sign out the user
 
     # if user doesn't exist or is signed-out, sign them in
     elif status == False:
         command = 0
-        o_data = []
-        o_data.append(data)
-        o_data.append(get_file_paths())        
-        controller(o_data, command) # sign in the user
+        file_path = get_file_paths()       
+
+        controller(data, command, file_path) # sign in the user
 
         parse = json.loads(data)
 
         for name in formattedNames:
             parse['Name'] = name
             dataI = json.dumps(parse)
-            l_data = []
-            l_data.append(dataI)
-            l_data.append(get_file_paths())
-            controller(dataI, command)
+            controller(dataI, command, file_path)
             
 
     # if user used the check-out form without using the check-in form
