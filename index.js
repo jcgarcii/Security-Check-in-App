@@ -15,7 +15,7 @@ const { spawn } = require('child_process');
 ipcMain.handle('python_sign_in', async (event, args) => {
   try {
     // Call the Python script when requested from the renderer process
-    const pythonProcess = spawn('python', ['./python/check_user.py', args]);
+    const pythonProcess = spawn('python', ['./python/check_user.py', args[0], args[1]]);
 
     pythonProcess.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);

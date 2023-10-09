@@ -15,7 +15,7 @@ Date:
 10/4/2023
 
 Version: 
-1.0.0
+2.0.0
 """
 import json
 import random
@@ -23,6 +23,7 @@ import os
 from datetime import date 
 import csv
 import sys
+import re
 import subprocess
 
 """
@@ -49,42 +50,43 @@ def get_file_paths():
 
     return file_addr
 
-# Function to check json_object against database, returns true if user is signed in, false otherwise
-# additionally, checks for other situtations, such as if the user is already signed out, or if the user is not in the database
-def get_status(JSON_object):
-    #print('Checking status...')
+def get_status(data):
     # Get file path
     file_path = get_file_paths()
-    json_object = json.loads(JSON_object)
+    jsonObj = json.loads(data)
 
     # Check if the file exists
     if not os.path.exists(file_path):
         print('File does not exist!')
         exit(1) 
-        
+
+    signed_in = False
+    matching_ids = []
+
     # Open the file
     with open(file_path, mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
-            # Check if the user is in the database
-            if row['Phone Number'] == json_object['Phone Number']:
+            # Check if the user has the same phone number
+            if row['Phone Number'] == jsonObj['Phone Number']:
                 # Check if the user is already signed out
                 if row['Active'] == '0':
-                #    print('User is  signed out!')
-                    return False, row['ID']
+                    # User is signed out, do something here if needed
+                    pass
                 elif row['Active'] == '1':
-                #    print('User is signed in!')
-                    return True, row['ID']
-                else: 
+                    # User is signed in
+                    signed_in = True
+                    matching_ids.append(row['ID'])
+                else:
                     # Error, invalid value for active
                     print('Error: Invalid value for active!')
-                    return None, None
-        
-        if json_object['Job'] == '':
-            return None, None
-        else: 
-            # no such user entry in the database
-            return False, None
+            else: 
+                pass 
+
+        if jsonObj['Job'] == '' and len(matching_ids) == 0 :
+            return None, None  # Invalid input, return None for both status and matching_ids
+        else:
+            return signed_in, matching_ids  # Return status and matching_ids
 
 # Option to implement additional functionality with sign ins
 def controller(data, command):
@@ -102,23 +104,37 @@ def controller(data, command):
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python your_python_script.py arg1")
         sys.exit(1)
 
-    json_object = sys.argv[1]
-    status, id = get_status(json_object)
+    data = sys.argv[1]
+    additionalNames = sys.argv[2]
+
+    formattedNames = additionalNames.split(",")
+    print("Names", formattedNames)
+
+    status, matchingID = get_status(data) # get the status of the user
 
     # if user is signed-in, sign them out
     if status == True:
         command = 1
-        controller(id, command) 
+        for id in matchingID:
+            controller(id, command) 
 
     # if user doesn't exist or is signed-out, sign them in
     elif status == False:
         command = 0
-        controller(json_object, command) 
-    
+        controller(data, command) # sign in the user
+
+        parse = json.loads(data)
+
+        for name in formattedNames:
+            parse['Name'] = name
+            dataI = json.dumps(parse)
+            controller(dataI, command)
+            
+
     # if user used the check-out form without using the check-in form
     elif status == None:
         print('Code 1: User is not in the database')

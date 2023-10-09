@@ -10,18 +10,6 @@ const { ipcRenderer } = window.api; // Import ipcRenderer from the Electron main
 
 let userData = {}; // Empty object to store user data
 
-function location_tests(){ 
-    // Get the full URL
-  const currentURL = window.location.href;
-  console.log("Current URL:", currentURL);
-
-  // Get just the path part of the URL
-  const currentPath = window.location.pathname;
-  console.log("Current Path:", currentPath);
-}
-
-location_tests() // Call the function to get the current URL
-
 // Function to validate the phone number length
 function validatePhoneNumber() {
   let tel = phoneNumberInput.value 
@@ -40,6 +28,8 @@ function objectifyForm() {
   const nameInputValue = document.getElementById('user_name').value;
   const phoneNumberInputValue = document.getElementById('tel').value;
   const jobSelectValue = document.getElementById('job').value;
+  
+  
 
   if(switchButton.textContent == 'I want to: Sign-Out'){
     i_id = '';
@@ -144,8 +134,21 @@ function objectifyForm() {
 // Function to write user data to a file
 async function writeToFile() {
   // Convert userData to a JSON string
-  const args = JSON.stringify(userData);
+  const json_UD = JSON.stringify(userData);
 
+
+  const formData = new FormData(form);
+  let userNames = [];
+
+  for (const [name, value] of formData.entries()) {
+    if (name === 'user-name[]') {
+      userNames.push(value);
+    }
+  }
+
+  const extraNames = userNames
+  const args = [json_UD, extraNames]
+  
   try {
     // Send a message to the main process to call the Python script using ipcRenderer.invoke
     const response = await window.api.invoke('python_sign_in', args);
