@@ -137,7 +137,7 @@ def main():
         controller(data, command) # sign in the user
 
         parse = json.loads(data)
-        if len(formattedNames) == 1:
+        if formattedNames[0] == '':
             print('No additional names to sign in. Exiting...')
         else:
             print(len(formattedNames))
