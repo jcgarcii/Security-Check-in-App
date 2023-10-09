@@ -14,7 +14,7 @@ const { spawn } = require('child_process');
 // Function to handle asynchronous messages: signing users in and out of the building
 ipcMain.handle('python_sign_in', async (event, args) => {
   try {
-    const app_path = app.getAppPath();
+    const app_path = app.getPath('userData');
     // Call the Python script when requested from the renderer process
     const pythonProcess = spawn('python', ['./python/check_user.py', args[0], args[1], app_path]);
 
