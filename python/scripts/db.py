@@ -42,16 +42,18 @@ def db_setup():
         sys.exit(1)
 
     appFilePath = sys.argv[1]
+    print(appFilePath)
 
     date_time = date.today() 
     
-    directory = str(date_time.month) + '_' + str(date_time.year)
+    month = str(date_time.month) + '_' + str(date_time.year)
+    directory = os.path.join(appFilePath, 'data', month)
+
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
-    
-    file_addr = str(appFilePath) + '/data/' + directory + '/' + file_name + '.csv'
+    file_addr = os.path.join(directory, file_name + '.csv')
 
     # Check if the current month's directory exists - if false, create it:
-    if not os.path.exists(directory):
+    if not os.path.exists(os.path.join(directory)):
             os.makedirs(directory)
     
     # Check if today's file has been created yet - if false, create it: 
