@@ -37,10 +37,10 @@ HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', '
 def db_setup(): 
     date_time = date.today() 
     
-    directory = str(date_time.month) + '_' + str(date_time.year)
+    directory = 'data/' + str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
+    file_addr = directory + '/' + file_name + '.csv'
 
     # Check if the current month's directory exists - if false, create it:
     if not os.path.exists(directory):

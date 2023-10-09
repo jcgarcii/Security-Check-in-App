@@ -123,8 +123,6 @@ def main():
     additionalNames = sys.argv[2]
 
     formattedNames = additionalNames.split(",")
-    print("Names", formattedNames)
-
     status, matchingID = get_status(data) # get the status of the user
 
     # if user is signed-in, sign them out
@@ -139,11 +137,15 @@ def main():
         controller(data, command) # sign in the user
 
         parse = json.loads(data)
-
-        for name in formattedNames:
-            parse['Name'] = name
-            dataI = json.dumps(parse)
-            controller(dataI, command)
+        if len(formattedNames) == 1:
+            print('No additional names to sign in. Exiting...')
+        else:
+            print(len(formattedNames))
+            print(formattedNames)
+            for name in formattedNames:
+                parse['Name'] = name
+                dataI = json.dumps(parse)
+                controller(dataI, command)
             
 
     # if user used the check-out form without using the check-in form
