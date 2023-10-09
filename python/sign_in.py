@@ -37,6 +37,8 @@ import sys
 
 HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
 
+appFilePath = ''
+
 #    Generates a random ID for the transaction, we'll use this to reference the user's entry in the database
 def trans_id(): 
     hash = random.getrandbits(32)
@@ -44,14 +46,7 @@ def trans_id():
 
 # Function to retrieve the file path for the current day's file
 def get_file_paths():
-    date_time = date.today() 
-    
-    directory = str(date_time.month) + '_' + str(date_time.year)
-    file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
-    
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
-
-    return file_addr
+    return appFilePath
 
 import csv
 
@@ -86,12 +81,17 @@ def append_json_to_csv(json_object):
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
+    arguments = sys.argv[1]
     # print ('Number of arguments:', len(sys.argv), 'arguments.')
-    json_object = sys.argv[1]
+    json_object = arguments[0]
+
+    global appFilePath
+    appFilePath = arguments[1]
+
 
     append_json_to_csv(json_object)
     

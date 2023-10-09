@@ -18,6 +18,7 @@ Version:
 1.0.1
 """
 import os
+import sys
 from datetime import date 
 
 """
@@ -35,12 +36,19 @@ HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', '
 #    [2]: File Name -> day_month_year.csv 
 
 def db_setup(): 
+
+    if len(sys.argv) != 2:
+        print("Usage: python your_python_script.py arg1")
+        sys.exit(1)
+
+    appFilePath = sys.argv[1]
+
     date_time = date.today() 
     
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
+    file_addr = str(appFilePath) + '/data/' + directory + '/' + file_name + '.csv'
 
     # Check if the current month's directory exists - if false, create it:
     if not os.path.exists(directory):

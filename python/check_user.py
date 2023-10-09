@@ -39,14 +39,16 @@ import subprocess
 
 HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
 
+appFilePath = ''
+
 # Function to retrieve the file path for the current day's file
 def get_file_paths():
     date_time = date.today() 
-    
+    home = str(appFilePath)
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
+    file_addr = home + '/data/' + directory + '/' + file_name + '.csv'
 
     return file_addr
 
@@ -101,15 +103,30 @@ def controller(data, command):
         print(f"Error: {e}")
         sys.exit(1)
 
+def check_db(path):
+    try:
+        # Call sign-in and wait for it to complete
+        subprocess.run(['python', 'python/scripts/db.py', path], check=True)
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print("Usage: python your_python_script.py arg1")
         sys.exit(1)
 
     data = sys.argv[1]
     additionalNames = sys.argv[2]
+
+    global appFilePath
+    appFilePath = sys.argv[3]
+
+    # Check if the database exists
+    check_db(appFilePath)
 
     formattedNames = additionalNames.split(",")
     print("Names", formattedNames)
@@ -119,19 +136,28 @@ def main():
     # if user is signed-in, sign them out
     if status == True:
         command = 1
+        o_data = []
         for id in matchingID:
-            controller(id, command) 
+            o_data.append(id)
+            o_data.append(get_file_paths())
+            controller(o_data, command) 
 
     # if user doesn't exist or is signed-out, sign them in
     elif status == False:
         command = 0
-        controller(data, command) # sign in the user
+        o_data = []
+        o_data.append(data)
+        o_data.append(get_file_paths())        
+        controller(o_data, command) # sign in the user
 
         parse = json.loads(data)
 
         for name in formattedNames:
             parse['Name'] = name
             dataI = json.dumps(parse)
+            l_data = []
+            l_data.append(dataI)
+            l_data.append(get_file_paths())
             controller(dataI, command)
             
 

@@ -36,17 +36,11 @@ import sys
 """
 
 HEADERS = ['Active', 'ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
+appFilePath = ''
 
 # Function to retrieve the file path for the current day's file
 def get_file_paths():
-    date_time = date.today() 
-    
-    directory = str(date_time.month) + '_' + str(date_time.year)
-    file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
-    
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
-
-    return file_addr
+    return appFilePath
 
 # Function to calculate the total time on site
 def get_time(time_string, give_end_time): 
@@ -111,11 +105,15 @@ def update_csv(id):
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Usage: python your_python_script.py arg1 arg2")
         sys.exit(1)
 
-    user_id = sys.argv[1]
+    arguments = sys.argv[1]
+    user_id = arguments[0]
+    
+    global appFilePath
+    appFilePath = arguments[1]
 
     print('Signing Out...')
 
