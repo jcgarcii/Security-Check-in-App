@@ -140,8 +140,6 @@ def main():
         if formattedNames[0] == '':
             print('No additional names to sign in. Exiting...')
         else:
-            print(len(formattedNames))
-            print(formattedNames)
             for name in formattedNames:
                 parse['Name'] = name
                 dataI = json.dumps(parse)
