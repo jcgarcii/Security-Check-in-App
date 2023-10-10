@@ -135,11 +135,10 @@ def main():
     elif status == False:
         command = 0
         controller(data, command) # sign in the user
-
-        parse = json.loads(data)
         if formattedNames[0] == '':
             print('No additional names to sign in. Exiting...')
         else:
+            parse = json.loads(data)
             for name in formattedNames:
                 parse['Name'] = name
                 dataI = json.dumps(parse)
