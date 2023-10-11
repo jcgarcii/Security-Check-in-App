@@ -5,33 +5,40 @@
  * Version: 2.0
  * Last Modified: 9/21/2023
  */
-
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const log = require('electron-log');
 const { spawn } = require('child_process');
 
 // Function to handle asynchronous messages: signing users in and out of the building
 ipcMain.handle('python_sign_in', async (event, args) => {
   try {
+    const app_path = app.getPath('userData');
+    log.info("app_path: ", app_path)
+
+    const appDirectory = __dirname;
+    const pythonScriptPath = path.join(appDirectory, 'python', 'check_user.py');
+    const pythonPath = path.join(appDirectory, 'python'); // Path to the python script(s) folder
+    
     // Call the Python script when requested from the renderer process
-    const pythonProcess = spawn('python', ['./python/check_user.py', args[0], args[1]]);
+    const pythonProcess = spawn('python', [pythonScriptPath, args[0], args[1], app_path, pythonPath]);
 
     pythonProcess.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
+      log.info(`stdout: ${data}`);
     });
 
     pythonProcess.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
+      log.info(`stderr: ${data}`);
     });
 
     pythonProcess.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
+      log.info(`child process exited with code ${code}`);
     });
 
     return { result: 'Python script started.' };
   } catch (error) {
-    console.error('Error executing Python script:', error);
+    log.error('Error executing Python script:', error);
     return { error: error.message };
   }
 });
@@ -54,6 +61,7 @@ async function createWindow() {
   });
   // Load your HTML or URL here
   win.loadFile('index.html');
+  // win.webContents.openDevTools();
 }
 app.on("ready", createWindow);
 

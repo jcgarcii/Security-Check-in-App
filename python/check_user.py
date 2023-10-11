@@ -15,7 +15,7 @@ Date:
 10/4/2023
 
 Version: 
-2.1.0
+2.0.0
 """
 import json
 import random
@@ -33,21 +33,23 @@ import subprocess
         - 2. get_file_paths(): retrieves the file path for the current day's file
         - 3. append_json_to_csv(): appends data from a JSON object to a CSV file
         - 4. controller(): controls the flow of the program
-        - 5. check_db(): checks if the database exists
-        - 6. main(): main function, calls the controller function
+        - 5. main(): main function, calls the controller function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
 
 HEADERS = ['Active','ID','Time in', 'Time Out', 'Name', 'Phone Number', 'Job', 'Reason', 'Company', 'Contact', 'Area', 'Time']
 
+appFilePath = ''
+pythonPath = ''
+
 # Function to retrieve the file path for the current day's file
 def get_file_paths():
     date_time = date.today() 
-    
+    home = str(appFilePath)
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = 'data/' + directory + '/' + file_name + '.csv'
+    file_addr = home + '/data/' + directory + '/' + file_name + '.csv'
 
     return file_addr
 
@@ -90,22 +92,26 @@ def get_status(data):
             return signed_in, matching_ids  # Return status and matching_ids
 
 # Option to implement additional functionality with sign ins
-def controller(data, command):
+def controller(data, command, path):
     try:
         if command == 0:
+            sign_in_path = os.path.join(pythonPath, 'sign_in.py')
             # Call sign-in and wait for it to complete
-            subprocess.run(['python', 'python/sign_in.py', data], check=True)
+            subprocess.run(['python', sign_in_path, data, path], check=True)
         elif command == 1: 
+            sign_out_path = os.path.join(pythonPath, 'sign_out.py')
             # Call sign-out and wait for it to complete
-            subprocess.run(['python', 'python/sign_out.py', data], check=True)
+            subprocess.run(['python', sign_out_path, data, path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
         sys.exit(1)
 
-# Check if the database exists
-def check_db():
-    try: 
-        subprocess.run(['python', 'python/scripts/db.py'], check=True)
+def check_db(path):
+    try:
+        db_path = os.path.join(pythonPath, 'scripts', 'db.py')
+        # Call sign-in and wait for it to complete
+        subprocess.run(['python', db_path, path], check=True)
+    
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
         sys.exit(1)
@@ -113,36 +119,50 @@ def check_db():
 # Main function, calls the controller function
 def main(): 
     # Check if the script was called with the correct number of arguments
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 5:
         print("Usage: python your_python_script.py arg1")
         sys.exit(1)
-
-    check_db()
 
     data = sys.argv[1]
     additionalNames = sys.argv[2]
 
+    global appFilePath
+    appFilePath = sys.argv[3]
+
+    global pythonPath
+    pythonPath = sys.argv[4]
+
+    # Check if the database exists
+    check_db(appFilePath)
+
     formattedNames = additionalNames.split(",")
+    print("Names", formattedNames)
+
     status, matchingID = get_status(data) # get the status of the user
 
     # if user is signed-in, sign them out
     if status == True:
         command = 1
+        file_path = get_file_paths()
         for id in matchingID:
-            controller(id, command) 
+            controller(id, command, file_path) # sign out the user
 
     # if user doesn't exist or is signed-out, sign them in
     elif status == False:
         command = 0
-        controller(data, command) # sign in the user
+        file_path = get_file_paths()       
+
+        controller(data, command, file_path) # sign in the user
+        
         if formattedNames[0] == '':
             print('No additional names to sign in. Exiting...')
         else:
             parse = json.loads(data)
+
             for name in formattedNames:
                 parse['Name'] = name
                 dataI = json.dumps(parse)
-                controller(dataI, command)
+                controller(dataI, command, file_path)
             
 
     # if user used the check-out form without using the check-in form
