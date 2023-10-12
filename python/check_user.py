@@ -49,7 +49,7 @@ def get_file_paths():
     directory = str(date_time.month) + '_' + str(date_time.year)
     file_name = str(date_time.day)+ '_' + str(date_time.month) + '_' + str(date_time.year)
     
-    file_addr = home + '/data/' + directory + '/' + file_name + '.csv'
+    file_addr = os.path.join(home, 'data', directory, file_name + '.csv')
 
     return file_addr
 

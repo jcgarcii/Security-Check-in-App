@@ -22,7 +22,7 @@ ipcMain.handle('python_sign_in', async (event, args) => {
     const pythonPath = path.join(appDirectory, 'python'); // Path to the python script(s) folder
     
     // Call the Python script when requested from the renderer process
-    const pythonProcess = spawn('python', [pythonScriptPath, args[0], args[1], app_path, pythonPath]);
+    const pythonProcess = spawn('python', [pythonScriptPath, args[0], args[1], appDirectory, pythonPath]);
 
     pythonProcess.stdout.on('data', (data) => {
       log.info(`stdout: ${data}`);
