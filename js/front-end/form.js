@@ -89,6 +89,13 @@ function toggleFormType(){
       visitReasonInput.required = false;
       jobSelect.style.display = 'none';
       jobLabel.style.display = 'none'; 
+      // hide additional fields if open 
+      if(contractorPurposeFieldset.style.display === 'block'){
+        contractorPurposeFieldset.style.display = 'none';
+      }
+      else if(visitPurposeFieldset.style.display === 'block'){
+        visitPurposeFieldset.style.display = 'none'
+      }
       switchButton.textContent = 'I want to: Sign-Out';
     } else {
       jobSelect.required = true;
@@ -98,6 +105,7 @@ function toggleFormType(){
     }
   });
 }
+
 
 // Call the function initially to set the initial state
 toggleFormType();

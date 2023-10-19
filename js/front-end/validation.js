@@ -207,6 +207,7 @@ function handleSubmit(event) {
   }, 3000); // Adjust the delay (in milliseconds) as needed
 }
 
+submitButton.addEventListener('click', handleSubmit);
 
 // Add an event listener to the form for form submission
-document.getElementById('check-in-form').addEventListener('submit', handleSubmit);
+//document.getElementById('check-in-form').addEventListener('submit', handleSubmit);
