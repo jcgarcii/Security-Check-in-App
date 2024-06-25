@@ -1,9 +1,9 @@
+![Node.js Logo](https://nodejs.org/static/images/logo.svg)
+![Electron Logo](https://electronjs.org/images/electron-logo.svg)
+
 # Security Check-In App
 
 This is a desktop application built with Electron that allows visitors to sign in and out of a company. The app is designed to use the least amount of resources possible, so it writes data to a local server with a file system instead of using an external database.
-
-![Node.js Logo](https://nodejs.org/static/images/logo.svg)
-![Electron Logo](https://electronjs.org/images/electron-logo.svg)
 
 ## Installation
 
